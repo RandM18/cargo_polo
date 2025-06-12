@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargo Polo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Heebo:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <header class="header" id="header">
+        <div class="container header__wrapper">
+            <a href="#" class="header__logo"><img src="assets/img/logo-header.svg" alt="Cargo Polo"></a>
+            <div class="header__vin">
+                <span>WVWZZZ1JZ3W386752</span>
+                <span>2019</span>
+                <span>Volkswagen Golf GTI</span>
+            </div>
+            <div class="header__actions">
+                <div class="lang">
+                    <div class="lang__icon"><img src="assets/img/lang-uk.svg" alt="UK"></div>
+                    <div class="lang__title">ENG</div>
+                </div>
+                <a href="#" class="share">
+                    <div class="share__icon"><img src="assets/img/icon-share.svg" alt="Share"></div>
+                    <div class="share__title">Share</div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main" id="main">
+        <div class="container">
+            <section class="hero">
+                <div class="hero__car">
+                    <img src="assets/img/tmp-polo.png" alt="Polo" class="hero__car_poster">
+                    <a href="#" class="hero__car_link">See all</a>
+                </div>
+                <div class="hero__type">
+                    <div class="hero__type_title">Select cut type</div>
+                    <ul class="hero__type_types">
+                        <li>
+                            <label class="radiobox">
+                                <input type="radio" name="calculator_type" value="standard" id="standard_radio">
+                                <span>Standart cut <strong>$ 250</strong></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="radiobox">
+                                <input type="radio" name="calculator_type" value="advanced" id="advanced_radio">
+                                <span>Advanced <strong>$ TBD</strong></span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="types disabled">
+                <div class="types__items" id="car_type_selector">
+                    <label class="cartype">
+                        <svg width="141" height="52">
+                            <use href="/assets/img/icons.svg#sedan"></use>
+                        </svg>
+                       <input type="radio" name="car_type" value="sedan" id="sedan_radio" disabled> <span>Sedan</span>
+                    </label>
+                    <label class="cartype" >
+                         <svg width="141" height="52">
+                            <use href="/assets/img/icons.svg#suv"></use>
+                        </svg>
+                        <input type="radio" name="car_type" value="suv" id="suv_radio" disabled> <span>SUV</span>
+                    </label>
+                </div>
+                <div class="types__plus">
+
+                </div>
+            </section>
+
+            <section class="skeletons disabled">
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+            </section>
+
+            <div class="standard-calculator" id="standard_calculator" style="display: none;">
+                STANDART CALCULATOR
+
+                <div class="standard-calculator__cats swiper" id="swiper-standartCats">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <label>
+                                <input type="checkbox" name="side" value="front"> Front cut
+                            </label>
+                        </div>
+                        <div class="swiper-slide">
+                            <label>
+                                <input type="checkbox" name="side" value="doors"> Doors
+                            </label>
+                        </div>
+                        <div class="swiper-slide">
+                            <label>
+                                <input type="checkbox" name="side" value="rims"> Rims and tires
+                            </label>
+                        </div>
+                        <div class="swiper-slide">
+                            <label>
+                                <input type="checkbox" name="side" value="rearBumper"> Rear bumper
+                            </label>
+                        </div>
+                        <div class="swiper-slide">
+                            <label>
+                                <input type="checkbox" name="side" value="rearTrunks"> Rear trunk
+                            </label>
+                        </div>
+                        <div class="swiper-slide">
+                            <label>
+                                <input type="checkbox" name="side" value="rearLights"> Rear lights
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <ul id="selected_services" class="standard-calculator__services">
+                    <!-- Список выбранных услуг будет добавлен сюда через JavaScript -->
+                </ul>
+
+            </div>
+            <div class="advanced-calculator" id="advanced_calculator" style="display: none;">
+                ADVANCED CALCULATOR
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer__wrapper">
+                <div class="footer__col">
+                    <a href="#" class="details">Order details</a>
+                </div>
+                <div class="footer__col">
+                    <div class="total">
+                        Total <span>$ <span id="total_price">0.00</span></span>
+                    </div>
+                    <button class="footer__btn" id="order_button">Order now</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
