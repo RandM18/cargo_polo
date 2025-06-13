@@ -6,43 +6,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const standardCalculator = document.getElementById("standard_calculator");
     const advancedCalculator = document.getElementById("advanced_calculator");
-    const checkboxes = document.querySelectorAll('input[name="side"]');
+    const checkboxes = document.querySelectorAll('input[name="side[]"]');
     const selectedServicesList = document.getElementById("selected_services");
     const sideButtons = document.querySelectorAll(".side-buttons button");
-    const highlightedArea = document.getElementById("highlighted_area");
+
+
     const totalPriceElement = document.getElementById("total_price");
     const orderButton = document.getElementById("order_button");
 
     const sedanRadio = document.getElementById("sedan_radio");
     const suvRadio = document.getElementById("suv_radio");
+    const allParts = document.getElementById("allparts");
 
     const carImage = document.getElementById("car_image");
 
-    let totalPrice = 0;
-    let carType = ""; // По умолчанию седан
+    const standartSedanCats = document.querySelector("#standard-calculator-cats");
 
-    // Данные об услугах (можете хранить в JSON файле)
+    const shareBtn = document.getElementById('share');
+    const langBtn = document.getElementById('lang');
+
+    let totalPrice = 0;
+    let carType = "";
+
+
+
+
+
+
     const services = {
         sedan: {
-            front: { name: "Front cut", text:"<strong>Included:</strong> Engine, front bumper, headlights, Engine, front bumper, headlightsEngine, front bumper, headlightsEngine, front bumper, headlights.", price: 1500 },
-            doors: { name: "Doors", text:"", price: 1200 },
-            rims: { name: "Rims and tires", text:"", price: 1800 },
-            rearBumper: { name: "Rear bumper", text:"", price: 1800 },
-            rearTrunks: { name: "Rear trunk", text:"", price: 2000 },
-            rearLights: { name: "Rear lights", text:"", price: 2000 },
+            front: { name: "Front cut", text: "<strong>Included:</strong> Engine, front bumper, headlights, Engine, front bumper, headlightsEngine, front bumper, headlightsEngine, front bumper, headlights.", price: 1500, icon: "sedan-front" },
+            doors: { name: "Doors", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 1200, icon: "sedan-doors" },
+            rims: { name: "Rims and tires", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 1800, icon: "sedan-rims" },
+            rearBumper: { name: "Rear bumper", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 1800, icon: "sedan-rearBumper" },
+            rearTrunks: { name: "Rear trunk", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 2000, icon: "sedan-rearTrunk" },
+            rearLights: { name: "Rear lights", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 2000, icon: "sedan-rearLights" },
         },
         suv: {
-            front: { name: "Полировка передней части (SUV)", price: 1800 },
-            rear: { name: "Полировка задней части (SUV)", price: 1500 },
-            left: { name: "Полировка левой стороны (SUV)", price: 2200 },
-            right: { name: "Полировка правой стороны (SUV)", price: 2200 },
-            roof: { name: "Полировка крыши (SUV)", price: 2500 },
+            
         },
     };
 
+
+
+
+
+
     // Обновление итоговой суммы
-    function setTotal(priceChange) {
-        totalPrice = priceChange;
+    function setTotal() {
+        totalPrice = parseFloat(document.querySelector('input[name="calculator_type"]:checked').value);
+        totalPrice += allParts.checked ? parseFloat( allParts.value ) : 0;
         totalPriceElement.textContent = totalPrice.toFixed(2);
     }
     function updateTotal(priceChange) {
@@ -50,15 +63,18 @@ document.addEventListener("DOMContentLoaded", function () {
         totalPriceElement.textContent = totalPrice.toFixed(2);
     }
 
-    function setCalcType(){
-      const isStandard = standardRadio.checked;
-      const carSedan = sedanRadio.checked;
-      const carSUV = suvRadio.checked;
 
-      if((carSedan || carSUV)){
-        standardCalculator.style.display = isStandard ? 'block' : 'none';
-        advancedCalculator.style.display = isStandard ? 'none' : 'block';
-      }
+
+
+    function setCalcType() {
+        const type = document.querySelector('input[name="calculator_type"]:checked');
+        const car = document.querySelector('input[name="car_type"]:checked');
+
+        if (type != null && car != null) {
+            const isStandard = standardRadio.checked;
+            standardCalculator.style.display = isStandard ? "block" : "none";
+            advancedCalculator.style.display = isStandard ? "none" : "block";
+        }
     }
 
     // Обработчик изменения типа калькулятора
@@ -67,28 +83,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setCalcType();
 
-        // Разблокируем радио-кнопки Sedan и SUV
         sedanRadio.disabled = false;
         suvRadio.disabled = false;
+        allParts.disabled = false;
 
         document.querySelector(".types").classList.remove("disabled");
         const skeleton = document.querySelector(".skeletons");
-        if(skeleton != null){
-          skeleton.classList.remove("disabled");
+        if (skeleton != null) {
+            skeleton.classList.remove("disabled");
         }
-
-        setTotal(isStandard ? 250 : 0);
-
-        // Сброс всего при смене типа
+        setTotal();
         resetCalculator();
     }
 
     // Обработчик изменения типа авто
     function handleCarTypeChange(event) {
-        
-
         setCalcType();
-        
 
         carType = event.target.value;
 
@@ -105,62 +115,72 @@ document.addEventListener("DOMContentLoaded", function () {
             skeleton.remove();
         }
 
-        resetCalculator(); // Сброс и перерасчет при смене типа авто
+        resetCalculator();
     }
 
     // Обработчик для Standart калькулятора
     function handleStandardCheckboxChange(event) {
         const side = event.target.value;
         const isChecked = event.target.checked;
+        const parent = event.target.parentElement;
 
         const service = services[carType][side];
 
         if (isChecked) {
-            const listItem = document.createElement("li");
-            listItem.textContent = `${service.name} - - ${service.text} ${service.price} руб.`;
-            listItem.dataset.side = side; // Сохраняем side для удаления
-            selectedServicesList.appendChild(listItem);
+            const listItem = `
+                <div class="standard-calculator__service" data-side="${side}">
+                    <div class="partsCheckbox">
+                        <div class="partsCheckbox__title">${service.name}</div>
+                        <div class="partsCheckbox__icon"><img src="assets/img/standart/${service.icon}-more.svg" alt="icon"></div>
+                    </div>
+                    <div class="standard-calculator__service_body">
+                        <div class="standard-calculator__service_name">${service.name}</div>
+                        <div class="standard-calculator__service_text">${service.text}</div>
+                    </div>
+                </div>
+            `;
+            selectedServicesList.insertAdjacentHTML('beforeend', listItem);
+            parent.classList.add('--checked');
             updateTotal(service.price);
         } else {
-            // Находим и удаляем элемент списка
-            const listItemToRemove = selectedServicesList.querySelector(`li[data-side="${side}"]`);
+            parent.classList.remove('--checked');
+            const listItemToRemove = selectedServicesList.querySelector(`.standard-calculator__service[data-side="${side}"]`);
             if (listItemToRemove) {
                 selectedServicesList.removeChild(listItemToRemove);
                 updateTotal(-service.price);
             }
+        }
+
+        if( document.querySelectorAll('#selected_services .standard-calculator__service').length == 0){
+            selectedServicesList.classList.add('isEmpty');
+        }else{
+            selectedServicesList.classList.remove('isEmpty');
         }
     }
 
     // Обработчик для Advanced калькулятора
     function handleAdvancedButtonClick(event) {
         const side = event.target.dataset.side;
-        highlightedArea.textContent = `Выбрана: ${side}`; // Просто текст, можно заменить на подсветку
-
-        //Заменить изображение в зависимости от типа авто и выбранной стороны
-        carImage.src = `images/${carType}_${side}.png`;
+        // carImage.src = `images/${carType}_${side}.png`;
     }
 
     // Сброс калькулятора (удаление выбранных элементов и обнуление суммы)
     function resetCalculator() {
-        // Сбрасываем выбранные стороны в Standart
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = false;
+        standartSedanCats.querySelectorAll('.partsCheckbox').forEach((item)=>{
+            item.classList.remove('--checked');
+            item.querySelector('input').checked = false;
         });
 
-        // Удаляем все элементы из списка выбранных услуг
+        selectedServicesList.classList.add('isEmpty');
+        selectedServicesList.querySelectorAll('.standard-calculator__service').forEach((item)=>{
+            item.remove();
+        });
 
-        while (selectedServicesList.firstChild) {
-            selectedServicesList.removeChild(selectedServicesList.firstChild);
-        }
-
-
-        // Обнуляем итоговую сумму
         const isStandard = standardRadio.checked;
-        setTotal(isStandard ? 250 : 0);
+        setTotal();
 
         //Сбрасываем изображение
         // carImage.src = `car.png`;
-        // highlightedArea.textContent = "";
     }
 
     // Привязка обработчиков событий
@@ -171,22 +191,50 @@ document.addEventListener("DOMContentLoaded", function () {
         radio.addEventListener("change", handleCarTypeChange);
     });
 
-    checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener("change", handleStandardCheckboxChange);
+    allParts.addEventListener('change', () => {
+      const isChecked = allParts.checked;
+      const cost = parseFloat(allParts.value);
+      updateTotal( isChecked ?  cost : -1*cost);
     });
+
+    standartSedanCats.addEventListener('change', function(event) {  
+        if (event.target && event.target.matches('input')) {  
+            handleStandardCheckboxChange(event);
+        }  
+    });  
 
     sideButtons.forEach((button) => {
         button.addEventListener("click", handleAdvancedButtonClick);
     });
 
     orderButton.addEventListener("click", function () {
-        alert(`Вы сделали заказ на сумму ${totalPrice} руб.`); // Просто пример
+        alert(`Вы сделали заказ на сумму $ ${totalPrice.toFixed(2)}`); // Просто пример
     });
 
 
+    Object.entries(services.sedan).map((entry) => {
+        let key = entry[0];
+        let value = entry[1];
 
-    const swiperStandartCats = new Swiper('#swiper-standartCats',{
-      slidesPerView:6,
-      spaceBetween: 10
+        const html = `
+            <label class="partsCheckbox">
+                <input type="checkbox" name="side[]" value="${key}">
+                <div class="partsCheckbox__title">${value.name}</div>
+                <div class="partsCheckbox__icon"><img src="assets/img/standart/${value.icon}.svg" alt="icon"></div>
+                <div class="partsCheckbox__status">Selected</div>
+            </label>
+        `;
+
+        standartSedanCats.insertAdjacentHTML("beforeEnd", html);
+
+    
+    });
+
+
+    shareBtn.addEventListener('click', function(){
+        const parent = shareBtn.parentElement.classList.toggle('--active');
+    });
+    langBtn.addEventListener('click', function(){
+        const parent = langBtn.parentElement.classList.toggle('--active');
     });
 });
