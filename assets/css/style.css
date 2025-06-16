@@ -1717,6 +1717,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 .header__logo {
   flex: 0 0 15.2rem;
@@ -1732,10 +1733,22 @@ body {
   align-items: center;
   gap: 2rem;
 }
+@media (max-width: 580px) {
+  .header__vin {
+    text-align: center;
+    flex: 0 0 100%;
+    justify-content: center;
+  }
+}
 .header__actions {
   display: flex;
   align-items: center;
   gap: 3.2rem;
+}
+@media (max-width: 768px) {
+  .header__actions {
+    margin: 0 0 0 auto;
+  }
 }
 
 .lang {
@@ -1862,6 +1875,12 @@ body {
   display: flex;
   gap: 8rem;
 }
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
 .hero__car {
   display: flex;
   align-items: center;
@@ -1886,6 +1905,11 @@ body {
   max-width: 56rem;
   width: 100%;
 }
+@media (max-width: 1024px) {
+  .hero__type {
+    max-width: 100%;
+  }
+}
 .hero__type_title {
   color: #424242;
   text-align: center;
@@ -1899,6 +1923,16 @@ body {
   align-items: center;
   justify-content: space-between;
   font-size: 28px;
+}
+@media (max-width: 768px) {
+  .hero__type_types {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 580px) {
+  .hero__type_types {
+    flex-wrap: wrap;
+  }
 }
 
 .radiobox {
@@ -1954,11 +1988,27 @@ body {
   display: flex;
   gap: 10px;
 }
+@media (max-width: 768px) {
+  .footer__wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 .footer__col {
   flex: 1 1 33%;
   display: flex;
   align-items: center;
   gap: 24px;
+}
+@media (max-width: 980px) {
+  .footer__col {
+    flex: 1 1 auto;
+  }
+}
+@media (max-width: 580px) {
+  .footer__col {
+    flex-wrap: wrap;
+  }
 }
 .footer__col .details {
   color: #3265B1;
@@ -1969,6 +2019,7 @@ body {
   font-size: 24px;
   font-weight: 500;
   color: #2D2D2D;
+  text-wrap: nowrap;
 }
 .footer__col .total span {
   margin-left: 12px;
@@ -1996,6 +2047,16 @@ body {
   gap: 8px;
   grid-template-columns: repeat(6, 1fr);
   transition: 0.5s;
+}
+@media (max-width: 768px) {
+  .skeletons {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 580px) {
+  .skeletons {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 .skeletons.disabled {
   opacity: 0.15;
@@ -2110,6 +2171,14 @@ body {
   font-weight: 500;
   color: #000;
 }
+@media (max-width: 768px) {
+  .cartype svg {
+    -o-object-fit: contain;
+       object-fit: contain;
+    width: 80%;
+    height: 80%;
+  }
+}
 
 .checkbox {
   display: flex;
@@ -2185,6 +2254,16 @@ body {
   gap: 8px;
   margin: 0 0 32px 0;
 }
+@media (max-width: 768px) {
+  .standard-calculator__cats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 580px) {
+  .standard-calculator__cats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 .standard-calculator__services {
   background: rgba(50, 101, 177, 0.0117647059);
   border: 1px solid rgba(50, 101, 177, 0.6);
@@ -2198,6 +2277,7 @@ body {
   display: none;
   font-size: 36px;
   color: rgba(50, 101, 177, 0.6509803922);
+  text-align: center;
 }
 .standard-calculator__services.isEmpty {
   display: flex;
@@ -2216,6 +2296,11 @@ body {
 .standard-calculator__service .partsCheckbox {
   flex: 0 0 192px;
   height: 132px;
+}
+@media (max-width: 768px) {
+  .standard-calculator__service .partsCheckbox {
+    display: none;
+  }
 }
 .standard-calculator__service_name {
   font-weight: 700;
@@ -2299,6 +2384,16 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 3.2rem;
+}
+@media (max-width: 768px) {
+  .standard-calculator__extras_list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 580px) {
+  .standard-calculator__extras_list {
+    grid-template-columns: 1fr;
+  }
 }
 .standard-calculator__extras_list label {
   cursor: pointer;
