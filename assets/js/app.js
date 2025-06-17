@@ -22,11 +22,13 @@ const carImage = document.getElementById("car_image");
 const standartCats = document.querySelector("#standard-calculator-cats");
 const extraItems = document.querySelector("#standard-calculator-extras");
 const advancedCats = document.querySelector("#advanced-calculator-cats");
-
-
+const carImageContainer = document.getElementById("car-image-container");
+const advancedChexboxs = document.getElementById('advanced-calculator-checkboxs');
 
 let totalPrice = 0;
 let carType = "";
+let currentView = "right";
+let svgDocument;
 
 const services = {
     sedan: {
@@ -49,14 +51,22 @@ const services = {
 
 const advancedViews = {
     sedan: {
-        top: { name: "Top view", icon: 'sedan-top'},
-        right: { name: "Right side view", icon: 'sedan-right' },
-        rear: { name: "Rear view", icon: 'sedan-rear'},
-        front: { name: "Front view", icon: 'sedan-front'},
-        underneath: { name: "Underneath", icon: 'sedan-underneath'},
-        interior: { name: "Interior", icon: 'sedan-interior'}
-    }
+        top: { name: "Top view", icon: "sedan-top" },
+        right: { name: "Right side view", icon: "sedan-right" },
+        rear: { name: "Rear view", icon: "sedan-rear" },
+        front: { name: "Front view", icon: "sedan-front" },
+        underneath: { name: "Underneath", icon: "sedan-underneath" },
+        interior: { name: "Interior", icon: "sedan-interior" },
+    },
 };
+
+const advancedCuts = [
+    {id: 'body', name: 'Body', price: 2500, tooltip: 'Lorem ipsum dol amor'},
+    {id: 'wheel', name: 'Front wheels', price: 500, tooltip: '2 items'},
+    {id: 'wheel2', name: 'Rear wheels', price: 500, tooltip: '2 items'},
+    {id: 'engine', name: 'Engine', price: 1000.50, tooltip: ''},
+    {id: 'light', name: 'Ligth', price: 100, tooltip: ''},
+];
 
 // Обновление итоговой суммы
 function setTotal() {
@@ -86,9 +96,13 @@ function handleCalculatorTypeChange() {
 
     setCalcType();
 
+    sedanRadio.checked = false;
+    suvRadio.checked = false;
     sedanRadio.disabled = false;
     suvRadio.disabled = false;
     allParts.disabled = false;
+
+    document.querySelectorAll('.cartype.--active').forEach( (item)=>{item.classList.remove('--active');});
 
     document.querySelector(".types").classList.remove("disabled");
     const skeleton = document.querySelector(".skeletons");
@@ -102,7 +116,6 @@ function handleCalculatorTypeChange() {
 // Обработчик изменения типа авто
 function handleCarTypeChange(event) {
     setCalcType();
-
 
     const isStandard = standardRadio.checked;
     carType = event.target.value;
@@ -120,7 +133,7 @@ function handleCarTypeChange(event) {
         skeleton.remove();
     }
 
-    if(isStandard){
+    if (isStandard) {
         standartCats.innerHTML = "";
         Object.entries(services[carType]).map((entry) => {
             let key = entry[0];
@@ -137,8 +150,8 @@ function handleCarTypeChange(event) {
 
             standartCats.insertAdjacentHTML("beforeEnd", html);
         });
-    }else{
-        advancedCats.innerHTML = '';
+    } else {
+        advancedCats.innerHTML = "";
         Object.entries(advancedViews[carType]).map((entry) => {
             let key = entry[0];
             let value = entry[1];
@@ -151,9 +164,32 @@ function handleCarTypeChange(event) {
                 `;
             advancedCats.insertAdjacentHTML("beforeEnd", html);
         });
-    }
+        loadSVG(currentView);
 
-   
+        Object.entries(advancedCuts).map((entry)=>{
+            let item = entry[1];        
+            let html = `
+                <li>
+                    <label class="extrasCheckbox">
+                        <input type="checkbox" name="cuts" value="${item.price}" data-part="${item.id}">
+                        <span>${item.name}</span>
+                `;
+                if(item.tooltip.length > 0){
+                    html += `
+                        <div class="tooltip">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">${item.tooltip}</div>
+                        </div>
+                    `;
+                }
+                html += `
+                        </label>
+                        <div class="extrasCheckbox__price">$${item.price}</div>
+                    </li>
+                `;     
+                advancedChexboxs.querySelector('.standard-calculator__extras_list').insertAdjacentHTML('beforeend', html);
+        });
+    }
 
     resetCalculator();
 }
@@ -198,29 +234,33 @@ function handleStandardCheckboxChange(event) {
     }
 }
 
-function handleAdvancedViewsChange(event){
+function handleAdvancedViewsChange(event) {
     const side = event.target.value;
     const isChecked = event.target.checked;
     const parent = event.target.parentElement;
 
-    if(isChecked){
-        parent.classList.add("--checked");
-    }else{
-        parent.classList.remove("--checked");
+    advancedCats.querySelectorAll('.partsCheckbox').forEach((item)=>{
+        item.classList.remove('--checked');
+    });
+    parent.classList.add("--checked");
+
+
+    const view = event.target.value;
+    if (view !== currentView) {
+        event.target.classList.add('active-view');
+        currentView = view;
+        loadSVG(view); // Загружаем SVG для нового вида
     }
-
-    selected_views.querySelector('.views')
-
 }
 
-function handleExtras(event){
+function handleExtras(event) {
     const price = event.target.value;
     const isChecked = event.target.checked;
 
-    if(isChecked){
-        updateTotal( parseFloat(price) );
-    }else{
-        updateTotal( -1*parseFloat(price) );
+    if (isChecked) {
+        updateTotal(parseFloat(price));
+    } else {
+        updateTotal(-1 * parseFloat(price));
     }
 }
 
@@ -270,9 +310,9 @@ standartCats.addEventListener("change", function (event) {
 });
 
 extraItems.addEventListener("change", function (event) {
-    if (event.target && event.target.matches('input')) {
-        const item = event.target.closest('li');
-        item.classList.toggle('--active');
+    if (event.target && event.target.matches("input")) {
+        const item = event.target.closest("li");
+        item.classList.toggle("--active");
         handleExtras(event);
     }
 });
@@ -283,13 +323,58 @@ advancedCats.addEventListener("change", function (event) {
     }
 });
 
+advancedChexboxs.addEventListener('change', function(event){
+    if( event.target && event.target.matches("input") ){
+        const item = event.target.closest("li");
+        item.classList.toggle("--active");
+        highlightParts();
+        if( event.target.checked ){
+            updateTotal( parseFloat( event.target.value ) );
+        }else{
+            updateTotal( -1*parseFloat( event.target.value ) );
+        }
+    }
+});
 
 sideButtons.forEach((button) => {
     button.addEventListener("click", handleAdvancedButtonClick);
 });
 
 orderButton.addEventListener("click", function () {
-    alert(`Вы сделали заказ на сумму $ ${totalPrice.toFixed(2)}`); // Просто пример
+    alert(`Вы сделали заказ на сумму $ ${totalPrice.toFixed(2)}`);
 });
+
+
+
+
+function loadSVG(view) {
+    fetch(`assets/img/advanced/sedan-${view}.svg`) // car_side.svg, car_top.svg
+        .then((response) => response.text())
+        .then((svgData) => {
+            carImageContainer.innerHTML = svgData;
+            svgDocument = carImageContainer.querySelector("svg");
+            highlightParts(); 
+        })
+        .catch((error) => console.error("SVG download error:", error));
+}
+
+// Функция для подсветки выбранных запчастей
+function highlightParts() {
+    advancedChexboxs.querySelectorAll('input').forEach((checkbox) => {
+        const partId = checkbox.dataset.part;
+        const svgElement = svgDocument.getElementById(partId);
+
+        
+        if (svgElement) {
+            if (checkbox.checked) {
+                svgElement.classList.add("highlighted");
+            } else {
+                svgElement.classList.remove("highlighted");
+            }
+        }
+    });
+}
+
+
 
 // });
