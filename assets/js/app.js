@@ -91,6 +91,7 @@ function setTotal() {
 function updateTotal(priceChange) {
     totalPrice += priceChange;
     totalPriceElement.textContent = totalPrice.toFixed(2);
+    getOrder();
 }
 
 function setCalcType() {
@@ -107,7 +108,8 @@ function setCalcType() {
 // Обработчик изменения типа калькулятора
 function handleCalculatorTypeChange() {
     const isStandard = standardRadio.checked;
-
+    
+    
     setCalcType();
 
     sedanRadio.checked = false;
@@ -130,11 +132,13 @@ function handleCalculatorTypeChange() {
     }
     setTotal();
     resetCalculator();
+    getOrder();
 }
 
 // Обработчик изменения типа авто
 function handleCarTypeChange(event) {
     setCalcType();
+    
 
     const isStandard = standardRadio.checked;
     carType = event.target.value;
@@ -216,6 +220,7 @@ function handleCarTypeChange(event) {
     }
      allParts.scrollIntoView({behavior: 'smooth'});
     resetCalculator();
+    getOrder();
 }
 
 // Обработчик для Standart калькулятора
@@ -256,6 +261,7 @@ function handleStandardCheckboxChange(event) {
     } else {
         selectedServicesList.classList.remove("isEmpty");
     }
+    
 }
 
 function handleAdvancedViewsChange(event) {
@@ -403,16 +409,65 @@ function highlightParts() {
 const details = document.querySelector('#orderDetails');
 const detailsIcon = details.querySelector('#orderDetails-icon');
 const detailsName = details.querySelector('#orderDetails-name');
+const detailsTable = details.querySelector('#orderDetails-table');
 document.querySelector('#details-popup').addEventListener('click', function(){
-    details.classList.toggle('--active');
+    if(carType != ''){
+        getOrder();
+        details.classList.toggle('--active');
+    }
+   
+});
+
+function getOrder(){
     detailsIcon.innerHTML = `
             <svg width="141" height="52">
                 <use href="/assets/img/icons.svg#${carType}"></use>
             </svg>
         `;
     detailsName.innerText = carType;
-});
 
+    detailsTable.innerHTML = '';
+    if(standardRadio.checked){
+        detailsTable.innerHTML += `
+        <tr><td>Standart cut</td><td>$${standardRadio.value}</td><td></td></tr>
+        `;
+    }
+    if(advancedRadio.checked){
+        detailsTable.innerHTML += `
+        <tr><td>Advanced</td><td></td><td></td></tr>
+        `;
+    }
+
+    const standartOrder = standartCats.querySelectorAll('input[type="checkbox"]');
+    standartOrder.forEach((item)=>{
+        if(item.checked){
+            detailsTable.innerHTML += `
+                <tr><td>${services[carType][item.value].name}</td><td>${services[carType][item.value].price}</td><td>
+                <button class="order-close" onClick=""></button></td></tr>
+            `;
+        }
+    });
+
+    const standartExtraOrder = extraItems.querySelectorAll('input[type="checkbox"]');
+    standartExtraOrder.forEach((item)=>{
+        if(item.checked){
+            detailsTable.innerHTML += `
+                <tr><td>${item.nextElementSibling.textContent}</td><td>$${item.value}</td><td>
+                <button class="order-close"></button></td></tr>
+            `;
+        }
+    });
+
+    const advancedOrder = advancedChexboxs.querySelectorAll('input[type="checkbox"]');
+    advancedOrder.forEach((item)=>{
+        if(item.checked){
+            detailsTable.innerHTML += `
+                <tr><td>${item.nextElementSibling.textContent}</td><td>$${item.value}</td><td>
+                <button class="order-close"></button></td></tr>
+            `;
+        }
+    });
+}
 
 
 // });
