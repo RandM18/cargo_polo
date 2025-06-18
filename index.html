@@ -25,7 +25,7 @@
             <div class="header__actions">
                 <div class="lang">
                     <button class="lang__btn" id="lang">
-                        <div class="lang__icon"><img src="assets/img/langs/lang-uk.svg" alt="UK"></div>
+                        <div class="lang__icon"><img src="assets/img/langs/lang-usa.svg" alt="icon"></div>
                         <div class="lang__title">ENG</div>
                     </button>
                     
@@ -124,8 +124,11 @@
                     </label>
                     <div class="tooltip">
                         <div class="tooltip__icon"></div>
-                        <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
-                            nesciunt.</div>
+                        <div class="tooltip__text">
+                                <p><strong>Protective Wrap Service</strong></p>
+                                <p>Your vehicle is securely covered in thick commercial-grade wrap with padded foam underneath. This prevents damage in transit and keeps loose parts safely contained.</p>
+                                <img src="assets/img/protective.jpg" alt="poster">
+                        </div>
                     </div>
                 </div>
             </section>
@@ -175,6 +178,54 @@
                             </label>
                             <div class="extrasCheckbox__price">$350.00</div>
                         </li>
+                        <li>
+                             <label class="extrasCheckbox">
+                                <input type="checkbox" name="extras[]" value="350">
+                                <span>Rear Cut</span>
+                                <div class="tooltip">
+                                    <div class="tooltip__icon"></div>
+                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
+                                        nesciunt.</div>
+                                </div>
+                            </label>
+                            <div class="extrasCheckbox__price">$350.00</div>
+                        </li>
+                        <li>
+                             <label class="extrasCheckbox">
+                                <input type="checkbox" name="extras[]" value="350">
+                                <span>Rear Cut</span>
+                                <div class="tooltip">
+                                    <div class="tooltip__icon"></div>
+                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
+                                        nesciunt.</div>
+                                </div>
+                            </label>
+                            <div class="extrasCheckbox__price">$350.00</div>
+                        </li>
+                        <li>
+                             <label class="extrasCheckbox">
+                                <input type="checkbox" name="extras[]" value="350">
+                                <span>Rear Cut</span>
+                                <div class="tooltip">
+                                    <div class="tooltip__icon"></div>
+                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
+                                        nesciunt.</div>
+                                </div>
+                            </label>
+                            <div class="extrasCheckbox__price">$350.00</div>
+                        </li>
+                        <li>
+                             <label class="extrasCheckbox">
+                                <input type="checkbox" name="extras[]" value="350">
+                                <span>Rear Cut</span>
+                                <div class="tooltip">
+                                    <div class="tooltip__icon"></div>
+                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
+                                        nesciunt.</div>
+                                </div>
+                            </label>
+                            <div class="extrasCheckbox__price">$350.00</div>
+                        </li>
 
                     </ul>
                 </div>
@@ -189,6 +240,7 @@
                 </div>
 
                 <div id="selected_views" class="advanced-calculator__services">
+                    <div id="car-view-name"></div>
                     <div id="car-image-container"></div>
                 </div>
 
@@ -209,7 +261,7 @@
         <div class="container">
             <div class="footer__wrapper">
                 <div class="footer__col">
-                    <a href="#" class="details">Order details</a>
+                    <a href="#" class="details" id="details-popup">Order details</a>
                 </div>
                 <div class="footer__col">
                     <div class="total">
@@ -221,8 +273,27 @@
         </div>
     </footer>
 
+    <div class="orderDetails" id="orderDetails">
+        <div class="orderDetails__wrapper">
+            <div class="orderDetails__title">Order details</div>
+            <div class="orderDetails__icon" id="orderDetails-icon"></div>
+            <div class="orderDetails__name" id="orderDetails-name">SUV</div>
+            <table class="orderDetails__table">
+                <tr>
+                    <td>Advanced cut</td>
+                    <td>$250</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Advanced cut</td>
+                    <td>$50</td>
+                    <td><button class="order-close"></button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> -->
+
     <script src="assets/js/app.js"></script>
 </body>
 

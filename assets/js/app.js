@@ -22,12 +22,13 @@ const carImage = document.getElementById("car_image");
 const standartCats = document.querySelector("#standard-calculator-cats");
 const extraItems = document.querySelector("#standard-calculator-extras");
 const advancedCats = document.querySelector("#advanced-calculator-cats");
+const carViewName = document.getElementById('car-view-name');
 const carImageContainer = document.getElementById("car-image-container");
 const advancedChexboxs = document.getElementById('advanced-calculator-checkboxs');
 
 let totalPrice = 0;
 let carType = "";
-let currentView = "right";
+let currentView = "left";
 let svgDocument;
 
 const services = {
@@ -51,21 +52,34 @@ const services = {
 
 const advancedViews = {
     sedan: {
-        top: { name: "Top view", icon: "sedan-top" },
-        right: { name: "Right side view", icon: "sedan-right" },
-        rear: { name: "Rear view", icon: "sedan-rear" },
-        front: { name: "Front view", icon: "sedan-front" },
-        underneath: { name: "Underneath", icon: "sedan-underneath" },
-        interior: { name: "Interior", icon: "sedan-interior" },
+        sedan_left: {name: "Left view", icon: "sedan-left"},
+        sedan_top: { name: "Top view", icon: "sedan-top" },
+        sedan_right: { name: "Right side view", icon: "sedan-right" },
+        sedan_rear: { name: "Rear view", icon: "sedan-rear" },
+        sedan_front: { name: "Front view", icon: "sedan-front" },
+        sedan_underneath: { name: "Underneath", icon: "sedan-underneath" },
+        sedan_interior: { name: "Interior", icon: "sedan-interior" },
     },
+    suv: {
+        suv_left: {name: "Left view", icon: "suv-left"},
+        suv_top: { name: "Top view", icon: "suv-top" },
+        suv_right: { name: "Right side view", icon: "suv-right" },
+        suv_rear: { name: "Rear view", icon: "suv-rear" },
+        suv_front: { name: "Front view", icon: "suv-front" },
+        suv_underneath: { name: "Underneath", icon: "suv-underneath" },
+        suv_interior: { name: "Interior", icon: "suv-interior" },
+    }
 };
 
 const advancedCuts = [
-    {id: 'body', name: 'Body', price: 2500, tooltip: 'Lorem ipsum dol amor'},
-    {id: 'wheel', name: 'Front wheels', price: 500, tooltip: '2 items'},
-    {id: 'wheel2', name: 'Rear wheels', price: 500, tooltip: '2 items'},
-    {id: 'engine', name: 'Engine', price: 1000.50, tooltip: ''},
-    {id: 'light', name: 'Ligth', price: 100, tooltip: ''},
+    {id: 'front', name: 'Front cut', price: 2500, tooltip: 'Lorem ipsum dol amor'},
+    {id: 'front-wheels', name: 'Front wheels', price: 500, tooltip: '2 items'},
+    {id: 'rear-wheels', name: 'Rear wheels', price: 500, tooltip: '2 items'},
+    {id: 'roof', name: 'Roof', price: 1000.50, tooltip: ''},
+    {id: 'lights', name: 'Ligths', price: 100, tooltip: ''},
+    {id: 'bumper', name: 'Bumper', price: 100, tooltip: ''},
+    {id: 'trunk', name: 'Trunk', price: 100, tooltip: ''},
+    {id: 'doors', name: 'Doors', price: 100, tooltip: ''},
 ];
 
 // Обновление итоговой суммы
@@ -101,6 +115,10 @@ function handleCalculatorTypeChange() {
     sedanRadio.disabled = false;
     suvRadio.disabled = false;
     allParts.disabled = false;
+    allParts.checked = true;
+
+    standardCalculator.style.display = "none";
+    advancedCalculator.style.display = "none";
 
     document.querySelectorAll('.cartype.--active').forEach( (item)=>{item.classList.remove('--active');});
 
@@ -108,6 +126,7 @@ function handleCalculatorTypeChange() {
     const skeleton = document.querySelector(".skeletons");
     if (skeleton != null) {
         skeleton.classList.remove("disabled");
+        skeleton.classList.remove('--remove');
     }
     setTotal();
     resetCalculator();
@@ -119,6 +138,7 @@ function handleCarTypeChange(event) {
 
     const isStandard = standardRadio.checked;
     carType = event.target.value;
+    currentView = carType + "_left";
 
     const cartype = document.querySelectorAll(".cartype.--active");
     if (cartype.length > 0) {
@@ -130,7 +150,7 @@ function handleCarTypeChange(event) {
 
     const skeleton = document.querySelector(".skeletons");
     if (skeleton != null) {
-        skeleton.remove();
+        skeleton.classList.add('--remove');
     }
 
     if (isStandard) {
@@ -149,14 +169,16 @@ function handleCarTypeChange(event) {
                 `;
 
             standartCats.insertAdjacentHTML("beforeEnd", html);
+
+
         });
     } else {
         advancedCats.innerHTML = "";
-        Object.entries(advancedViews[carType]).map((entry) => {
+        Object.entries(advancedViews[carType]).map((entry, index) => { 
             let key = entry[0];
             let value = entry[1];
             const html = `
-                    <label class="partsCheckbox">
+                    <label class="partsCheckbox ${index==0?'--checked':''}">
                         <input type="radio" name="view" value="${key}">
                         <div class="partsCheckbox__title">${value.name}</div>
                         <div class="partsCheckbox__icon"><img src="assets/img/advanced/${value.icon}.svg" alt="icon"></div>
@@ -189,8 +211,10 @@ function handleCarTypeChange(event) {
                 `;     
                 advancedChexboxs.querySelector('.standard-calculator__extras_list').insertAdjacentHTML('beforeend', html);
         });
-    }
 
+       
+    }
+     allParts.scrollIntoView({behavior: 'smooth'});
     resetCalculator();
 }
 
@@ -348,11 +372,12 @@ orderButton.addEventListener("click", function () {
 
 
 function loadSVG(view) {
-    fetch(`assets/img/advanced/sedan-${view}.svg`) // car_side.svg, car_top.svg
+    fetch(`assets/img/advanced/cars/${view}.svg`) // car_side.svg, car_top.svg
         .then((response) => response.text())
         .then((svgData) => {
             carImageContainer.innerHTML = svgData;
             svgDocument = carImageContainer.querySelector("svg");
+            carViewName.innerText = advancedViews[carType][view].name;
             highlightParts(); 
         })
         .catch((error) => console.error("SVG download error:", error));
@@ -374,6 +399,19 @@ function highlightParts() {
         }
     });
 }
+
+const details = document.querySelector('#orderDetails');
+const detailsIcon = details.querySelector('#orderDetails-icon');
+const detailsName = details.querySelector('#orderDetails-name');
+document.querySelector('#details-popup').addEventListener('click', function(){
+    details.classList.toggle('--active');
+    detailsIcon.innerHTML = `
+            <svg width="141" height="52">
+                <use href="/assets/img/icons.svg#${carType}"></use>
+            </svg>
+        `;
+    detailsName.innerText = carType;
+});
 
 
 
