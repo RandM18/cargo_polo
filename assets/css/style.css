@@ -2055,6 +2055,9 @@ body {
   color: #3265B1;
   font-size: 20px;
   font-weight: 500;
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
 .footer__col .total {
   font-size: 24px;
@@ -2628,11 +2631,24 @@ body {
   width: 100%;
   transition: 0.3s linear;
   transform: translateY(100%);
-  max-height: 700px;
-  overflow: auto;
 }
 .orderDetails.--active {
   transform: translateY(0);
+}
+.orderDetails__scrolled {
+  max-height: 400px;
+  overflow: auto;
+}
+.orderDetails__scrolled::-webkit-scrollbar {
+  width: 6px;
+  background-color: silver;
+}
+.orderDetails__scrolled::-webkit-scrollbar-thumb {
+  background: #3265b1;
+}
+.orderDetails__scrolled::-webkit-scrollbar-track {
+  background-color: #a2bce2;
+  border-radius: 4px;
 }
 .orderDetails__title {
   margin: 0 0 32px 0;

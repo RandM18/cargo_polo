@@ -76,6 +76,7 @@
 
     <main class="main" id="main">
         <div class="container">
+            
             <section class="hero">
                 <div class="hero__car">
                     <img src="assets/img/tmp-polo.png" alt="Polo" class="hero__car_poster">
@@ -144,90 +145,15 @@
 
             <div class="standard-calculator" id="standard_calculator" style="display: none;">
 
-                <div class="standard-calculator__cats" id="standard-calculator-cats">
-                </div>
+                <div class="standard-calculator__cats" id="standard-calculator-cats"></div>
 
                 <div id="selected_services" class="standard-calculator__services isEmpty">
                     <div class="_empty">Please select cut from the list above</div>
                 </div>
 
-                <div class="standard-calculator__extras" id="standard-calculator-extras">
+                <div class="standard-calculator__extras">
                     <div class="standard-calculator__extras_title">Extras</div>
-                    <ul class="standard-calculator__extras_list" id="standard-calculator-extras">
-                        <li>
-                             <label class="extrasCheckbox">
-                                <input type="checkbox" name="extras[]" value="250">
-                                <span>Front Cut</span>
-                                <div class="tooltip">
-                                    <div class="tooltip__icon"></div>
-                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
-                                        nesciunt.</div>
-                                </div>
-                            </label>
-                            <div class="extrasCheckbox__price">$250.00</div>
-                        </li>
-                        <li>
-                             <label class="extrasCheckbox">
-                                <input type="checkbox" name="extras[]" value="350">
-                                <span>Rear Cut</span>
-                                <div class="tooltip">
-                                    <div class="tooltip__icon"></div>
-                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
-                                        nesciunt.</div>
-                                </div>
-                            </label>
-                            <div class="extrasCheckbox__price">$350.00</div>
-                        </li>
-                        <li>
-                             <label class="extrasCheckbox">
-                                <input type="checkbox" name="extras[]" value="350">
-                                <span>Rear Cut</span>
-                                <div class="tooltip">
-                                    <div class="tooltip__icon"></div>
-                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
-                                        nesciunt.</div>
-                                </div>
-                            </label>
-                            <div class="extrasCheckbox__price">$350.00</div>
-                        </li>
-                        <li>
-                             <label class="extrasCheckbox">
-                                <input type="checkbox" name="extras[]" value="350">
-                                <span>Rear Cut</span>
-                                <div class="tooltip">
-                                    <div class="tooltip__icon"></div>
-                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
-                                        nesciunt.</div>
-                                </div>
-                            </label>
-                            <div class="extrasCheckbox__price">$350.00</div>
-                        </li>
-                        <li>
-                             <label class="extrasCheckbox">
-                                <input type="checkbox" name="extras[]" value="350">
-                                <span>Rear Cut</span>
-                                <div class="tooltip">
-                                    <div class="tooltip__icon"></div>
-                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
-                                        nesciunt.</div>
-                                </div>
-                            </label>
-                            <div class="extrasCheckbox__price">$350.00</div>
-                        </li>
-                        <li>
-                             <label class="extrasCheckbox">
-                                <input type="checkbox" name="extras[]" value="350">
-                                <span>Rear Cut</span>
-                                <div class="tooltip">
-                                    <div class="tooltip__icon"></div>
-                                    <div class="tooltip__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et,
-                                        nesciunt.</div>
-                                </div>
-                            </label>
-                            <div class="extrasCheckbox__price">$350.00</div>
-                        </li>
-
-                    </ul>
+                    <ul class="standard-calculator__extras_list" id="standard-calculator-extras"></ul>
                 </div>
 
             </div>
@@ -236,20 +162,17 @@
 
             <div class="advanced-calculator" id="advanced_calculator" style="display: none;">
                 
-                <div class="standard-calculator__cats" id="advanced-calculator-cats">
-                </div>
+                <div class="standard-calculator__cats" id="advanced-calculator-cats"></div>
 
                 <div id="selected_views" class="advanced-calculator__services">
                     <div id="car-view-name"></div>
                     <div id="car-image-container"></div>
                 </div>
 
-                 <div class="standard-calculator__extras" id="advanced-calculator-checkboxs">
+                 <div class="standard-calculator__extras">
                     <div class="standard-calculator__extras_title">Cut type</div>
-                    <ul class="standard-calculator__extras_list"></ul>
+                    <ul class="standard-calculator__extras_list" id="advanced-calculator-checkboxs"></ul>
                 </div>
-
-                
 
             </div>
 
@@ -261,7 +184,7 @@
         <div class="container">
             <div class="footer__wrapper">
                 <div class="footer__col">
-                    <a href="#" class="details" id="details-popup">Order details</a>
+                    <button class="details" id="details-popup">Order details</button>
                 </div>
                 <div class="footer__col">
                     <div class="total">
@@ -278,20 +201,12 @@
             <div class="orderDetails__title">Order details</div>
             <div class="orderDetails__icon" id="orderDetails-icon"></div>
             <div class="orderDetails__name" id="orderDetails-name">SUV</div>
-            <table class="orderDetails__table">
-                <tbody id="orderDetails-table">
-                <tr>
-                    <td>Advanced cut</td>
-                    <td>$250</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Advanced cut</td>
-                    <td>$50</td>
-                    <td><button class="order-close"></button></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="orderDetails__scrolled">
+                <table class="orderDetails__table">
+                    <tbody id="orderDetails-table">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

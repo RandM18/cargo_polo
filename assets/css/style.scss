@@ -480,6 +480,9 @@ body {
             color: #3265B1;
             font-size: 20px;
             font-weight: 500;
+            background-color: transparent;
+            border: none;
+            outline: none;
         }
 
         .total {
@@ -1141,7 +1144,7 @@ body {
     position: fixed;
     bottom: 0;
     left: 64px;
-    color:#000;
+    color: #000;
 
     font-weight: 500;
     font-size: 20px;
@@ -1151,11 +1154,31 @@ body {
     transition: .3s linear;
     transform: translateY(100%);
 
-    max-height: 700px;
-    overflow: auto;
 
-    &.--active{
+
+    &.--active {
         transform: translateY(0);
+    }
+
+    &__scrolled {
+        max-height: 400px;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            width: 6px;
+            background-color: silver;
+
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #3265b1; 
+
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #a2bce2;
+            border-radius: 4px;
+        }
     }
 
 
@@ -1196,13 +1219,15 @@ body {
         border-collapse: collapse;
         width: 100%;
 
-        tr{
-            td{
+        tr {
+            td {
                 padding: 12px 0px;
-                &:nth-child(2){
-                    color:#3265B1;
+
+                &:nth-child(2) {
+                    color: #3265B1;
                 }
-                &:nth-child(3){
+
+                &:nth-child(3) {
                     width: 24px;
                 }
             }
@@ -1210,15 +1235,17 @@ body {
     }
 }
 
-.order-close{
+.order-close {
     position: relative;
     width: 24px;
     height: 24px;
     background-color: transparent;
-            outline: none;
-        border:none;
-    &:before, &:after{
-        content:'';
+    outline: none;
+    border: none;
+
+    &:before,
+    &:after {
+        content: '';
         position: absolute;
         left: 50%;
         top: 50%;
@@ -1228,10 +1255,12 @@ body {
 
         cursor: pointer;
     }
-    &:before{
-        transform: translate(-50%,-50%) rotate(45deg);
+
+    &:before {
+        transform: translate(-50%, -50%) rotate(45deg);
     }
-    &:after{
-        transform: translate(-50%,-50%) rotate(-45deg);
+
+    &:after {
+        transform: translate(-50%, -50%) rotate(-45deg);
     }
 }

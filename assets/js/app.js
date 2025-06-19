@@ -31,6 +31,10 @@ let carType = "";
 let currentView = "left";
 let svgDocument;
 
+
+// DATA
+
+// STANDART CALC
 const services = {
     sedan: {
         front: { name: "Front cut", text: "<strong>Included:</strong> Engine, front bumper, headlights, Engine, front bumper, headlightsEngine, front bumper, headlightsEngine, front bumper, headlights.", price: 1500, icon: "sedan-front" },
@@ -50,6 +54,18 @@ const services = {
     },
 };
 
+const standartExtraData = [
+    { name: "Extra super long option1", price: 100, tooltip: "Lorem ipsum dol amor" },
+    { name: "Extra 3", price: 100, tooltip: "Lorem ipsum dol amor" },
+    { name: "Extra 5", price: 50, tooltip: "" },
+    { name: "Extra 2", price: 75, tooltip: "" },
+    { name: "Extra short option number4", price: 200, tooltip: "Lorem ipsum dol amor" },
+    { name: "Extra 6", price: 125, tooltip: "Lorem ipsum dol amor" },
+    { name: "Extra 7", price: 100, tooltip: "Lorem ipsum dol amor" },
+    { name: "Extra 8", price: 10, tooltip: "" },
+];
+
+//ADVANCED CALC
 const advancedViews = {
     sedan: {
         sedan_left: { name: "Left view", icon: "sedan-left" },
@@ -82,7 +98,7 @@ const advancedCuts = [
     { id: "doors", name: "Doors", price: 100, tooltip: "" },
 ];
 
-// Обновление итоговой суммы
+// Update total price
 function setTotal() {
     totalPrice = parseFloat(document.querySelector('input[name="calculator_type"]:checked').value);
     totalPrice += allParts.checked ? parseFloat(allParts.value) : 0;
@@ -94,6 +110,7 @@ function updateTotal(priceChange) {
     getOrder();
 }
 
+// Change calc type
 function setCalcType() {
     const type = document.querySelector('input[name="calculator_type"]:checked');
     const car = document.querySelector('input[name="car_type"]:checked');
@@ -105,7 +122,6 @@ function setCalcType() {
     }
 }
 
-// Обработчик изменения типа калькулятора
 function handleCalculatorTypeChange() {
     const isStandard = standardRadio.checked;
 
@@ -157,7 +173,11 @@ function handleCarTypeChange(event) {
         skeleton.classList.add("--remove");
     }
 
+    detailsTable.innerHTML = "";
     if (isStandard) {
+            detailsTable.innerHTML += `
+        <tr><td>Standart cut</td><td>$${standardRadio.value}</td><td></td></tr>
+        `;
         standartCats.innerHTML = "";
         Object.entries(services[carType]).map((entry) => {
             let key = entry[0];
@@ -174,7 +194,31 @@ function handleCarTypeChange(event) {
 
             standartCats.insertAdjacentHTML("beforeEnd", html);
         });
+
+        extraItems.innerHTML = "";
+        standartExtraData.forEach((item, index)=>{
+            const html = `
+                <li>
+                    <label class="extrasCheckbox">
+                        <input type="checkbox" name="extras[]" value="${item.price}" data-id="e-${index}">
+                        <span>${item.name}</span>
+                        ${
+                            item.tooltip.length > 0 ? `<div class="tooltip">
+                                <div class="tooltip__icon"></div>
+                                <div class="tooltip__text">${item.tooltip}</div>
+                            </div>`
+                            :``
+                        }
+                    </label>
+                    <div class="extrasCheckbox__price">$${item.price}</div>
+                </li>
+            `;
+            extraItems.insertAdjacentHTML("beforeEnd", html);
+        });
     } else {
+        detailsTable.innerHTML += `
+            <tr><td>Advanced</td><td></td><td></td></tr>
+        `;
         advancedCats.innerHTML = "";
         Object.entries(advancedViews[carType]).map((entry, index) => {
             let key = entry[0];
@@ -190,6 +234,7 @@ function handleCarTypeChange(event) {
         });
         loadSVG(currentView);
 
+        advancedChexboxs.innerHTML = '';
         Object.entries(advancedCuts).map((entry) => {
             let item = entry[1];
             let html = `
@@ -197,21 +242,18 @@ function handleCarTypeChange(event) {
                     <label class="extrasCheckbox">
                         <input type="checkbox" name="cuts" value="${item.price}" data-part="${item.id}">
                         <span>${item.name}</span>
-                `;
-            if (item.tooltip.length > 0) {
-                html += `
-                        <div class="tooltip">
+                    ${item.tooltip.length > 0 ? 
+                        `<div class="tooltip">
                             <div class="tooltip__icon"></div>
                             <div class="tooltip__text">${item.tooltip}</div>
-                        </div>
-                    `;
-            }
-            html += `
-                        </label>
+                        </div>`
+                        :``
+                    }
+                    </label>
                         <div class="extrasCheckbox__price">$${item.price}</div>
                     </li>
                 `;
-            advancedChexboxs.querySelector(".standard-calculator__extras_list").insertAdjacentHTML("beforeend", html);
+            advancedChexboxs.insertAdjacentHTML("beforeend", html);
         });
     }
     allParts.scrollIntoView({ behavior: "smooth" });
@@ -243,15 +285,19 @@ function handleStandardCheckboxChange(event) {
         selectedServicesList.insertAdjacentHTML("beforeend", listItem);
         parent.classList.add("--checked");
         updateTotal(service.price);
-        localStorage.setItem(service.name, service.price);
+
+        detailsTable.innerHTML += `
+            <tr data-side="${side}"><td>${service.name}</td><td>$${service.price}</td><td>
+            <button class="order-close" data-type="standart-service" data-remove="${side}"></button></td></tr>
+        `;
     } else {
         parent.classList.remove("--checked");
         const listItemToRemove = selectedServicesList.querySelector(`.standard-calculator__service[data-side="${side}"]`);
         if (listItemToRemove) {
             selectedServicesList.removeChild(listItemToRemove);
             updateTotal(-service.price);
+            detailsTable.querySelector(`tr[data-side="${side}"]`).remove();
         }
-        localStorage.removeItem(service.name);
     }
 
     if (document.querySelectorAll("#selected_services .standard-calculator__service").length == 0) {
@@ -275,18 +321,26 @@ function handleAdvancedViewsChange(event) {
     if (view !== currentView) {
         event.target.classList.add("active-view");
         currentView = view;
-        loadSVG(view); // Загружаем SVG для нового вида
+        loadSVG(view);
     }
 }
 
 function handleExtras(event) {
     const price = event.target.value;
     const isChecked = event.target.checked;
+    const name = event.target.nextElementSibling.textContent;
+    const id = event.target.dataset.id;
 
     if (isChecked) {
         updateTotal(parseFloat(price));
+        detailsTable.innerHTML += `
+            <tr data-side="e-${id}"><td>${name}</td><td>$${price}</td><td>
+            <button class="order-close" data-type="standart-extras" data-remove="${id}"></button></td></tr>
+        `;
+        
     } else {
         updateTotal(-1 * parseFloat(price));
+        detailsTable.querySelector(`tr[data-side="e-${id}"]`).remove();
     }
 }
 
@@ -308,11 +362,7 @@ function resetCalculator() {
         item.remove();
     });
 
-    const isStandard = standardRadio.checked;
     setTotal();
-
-    //Сбрасываем изображение
-    // carImage.src = `car.png`;
 }
 
 // Привязка обработчиков событий
@@ -351,13 +401,21 @@ advancedCats.addEventListener("change", function (event) {
 
 advancedChexboxs.addEventListener("change", function (event) {
     if (event.target && event.target.matches("input")) {
+        const id = event.target.dataset.part;
         const item = event.target.closest("li");
+        const name = event.target.nextElementSibling.textContent;
+        const price = event.target.value;
         item.classList.toggle("--active");
         highlightParts();
         if (event.target.checked) {
             updateTotal(parseFloat(event.target.value));
+            detailsTable.innerHTML += `
+                <tr data-side="${id}"><td>${name}</td><td>$${price}</td><td>
+                <button class="order-close" data-type="advanced-service" data-remove="${id}"></button></td></tr>
+            `;
         } else {
             updateTotal(-1 * parseFloat(event.target.value));
+            detailsTable.querySelector(`tr[data-side="${id}"]`).remove();
         }
     }
 });
@@ -403,15 +461,27 @@ const detailsIcon = details.querySelector("#orderDetails-icon");
 const detailsName = details.querySelector("#orderDetails-name");
 const detailsTable = details.querySelector("#orderDetails-table");
 document.querySelector("#details-popup").addEventListener("click", function () {
-    if (carType != "") {
+    // if (carType != "") {
         getOrder();
         details.classList.toggle("--active");
-    }
+    // }
 });
 
 detailsTable.addEventListener('click', function(event){
     if(event.target && event.target.matches('button.order-close')){
-        localStorage.removeItem( event.target.dataset.remove );
+        const type = event.target.dataset.type;
+        const id = event.target.dataset.remove;
+
+        if(type == 'standart-service'){
+            standartCats.querySelector(`input[value="${id}"]`).click();
+        } else if(type == 'standart-extras'){
+            extraItems.querySelector(`input[data-id="${id}"`).click();
+        } else if(type == 'advanced-service'){
+            advancedChexboxs.querySelector(`input[data-part="${id}"]`).click();
+        }
+
+        
+
         getOrder();
     }
 });
@@ -423,56 +493,6 @@ function getOrder() {
             </svg>
         `;
     detailsName.innerText = carType;
-
-    detailsTable.innerHTML = "";
-    if (standardRadio.checked) {
-        detailsTable.innerHTML += `
-        <tr><td>Standart cut</td><td>$${standardRadio.value}</td><td></td></tr>
-        `;
-    }
-    if (advancedRadio.checked) {
-        detailsTable.innerHTML += `
-        <tr><td>Advanced</td><td></td><td></td></tr>
-        `;
-    }
-
-    for (let i = 0; i < localStorage.length; i++) {
-        let key = localStorage.key(i);
-        detailsTable.innerHTML += `
-                <tr><td>${key}</td><td>$${localStorage.getItem(key)}</td><td>
-                <button class="order-close" data-remove="${key}"></button></td></tr>
-            `;
-    }
-
-    // const standartOrder = standartCats.querySelectorAll('input[type="checkbox"]');
-    // standartOrder.forEach((item)=>{
-    //     if(item.checked){
-    //         detailsTable.innerHTML += `
-    //             <tr><td>${services[carType][item.value].name}</td><td>${services[carType][item.value].price}</td><td>
-    //             <button class="order-close" onClick=""></button></td></tr>
-    //         `;
-    //     }
-    // });
-
-    // const standartExtraOrder = extraItems.querySelectorAll('input[type="checkbox"]');
-    // standartExtraOrder.forEach((item)=>{
-    //     if(item.checked){
-    //         detailsTable.innerHTML += `
-    //             <tr><td>${item.nextElementSibling.textContent}</td><td>$${item.value}</td><td>
-    //             <button class="order-close"></button></td></tr>
-    //         `;
-    //     }
-    // });
-
-    // const advancedOrder = advancedChexboxs.querySelectorAll('input[type="checkbox"]');
-    // advancedOrder.forEach((item)=>{
-    //     if(item.checked){
-    //         detailsTable.innerHTML += `
-    //             <tr><td>${item.nextElementSibling.textContent}</td><td>$${item.value}</td><td>
-    //             <button class="order-close"></button></td></tr>
-    //         `;
-    //     }
-    // });
 }
 
 // });
