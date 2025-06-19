@@ -1104,6 +1104,12 @@ body {
             // stroke: #3265B1 !important;
         }
     }
+
+    svg{
+        path:hover{
+            fill: lighten(#3265B1, 10);
+        }
+    }
 }
 
 #selected_views {
@@ -1187,6 +1193,39 @@ body {
 
     &__wrapper {}
 
+    &__close{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: none;
+        outline: none;
+        border:none;
+
+        &:before{
+            content:'';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 80%;
+            height: 2px;
+            background-color: #3265B1;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+        &:after{
+            content:'';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 80%;
+            height: 2px;
+            background-color: #3265B1;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+    }
+
     // .orderDetails__title
 
     &__title {
@@ -1225,6 +1264,8 @@ body {
 
                 &:nth-child(2) {
                     color: #3265B1;
+                    width: 100px;
+                    text-align: right;
                 }
 
                 &:nth-child(3) {

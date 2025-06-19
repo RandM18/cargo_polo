@@ -37,20 +37,20 @@ let svgDocument;
 // STANDART CALC
 const services = {
     sedan: {
-        front: { name: "Front cut", text: "<strong>Included:</strong> Engine, front bumper, headlights, Engine, front bumper, headlightsEngine, front bumper, headlightsEngine, front bumper, headlights.", price: 1500, icon: "sedan-front" },
-        doors: { name: "Doors", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 1200, icon: "sedan-doors" },
-        rims: { name: "Rims and tires", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 1800, icon: "sedan-rims" },
-        rearBumper: { name: "Rear bumper", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 1800, icon: "sedan-rearBumper" },
-        rearTrunks: { name: "Rear trunk", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 2000, icon: "sedan-rearTrunk" },
-        rearLights: { name: "Rear lights", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 2000, icon: "sedan-rearLights" },
+        front: { name: "Front cut", text: "<strong>Included:</strong> Engine, front bumper, headlights, Engine, front bumper, headlightsEngine, front bumper, headlightsEngine, front bumper, headlights.", price: 0, icon: "sedan-front" },
+        doors: { name: "Doors", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "sedan-doors" },
+        rims: { name: "Rims and tires", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "sedan-rims" },
+        rearBumper: { name: "Rear bumper", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "sedan-rearBumper" },
+        rearTrunks: { name: "Rear trunk", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "sedan-rearTrunk" },
+        rearLights: { name: "Rear lights", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "sedan-rearLights" },
     },
     suv: {
-        front: { name: "Front cut", text: "<strong>Included:</strong> Engine, front bumper, headlights, Engine, front bumper, headlightsEngine, front bumper, headlightsEngine, front bumper, headlights.", price: 1500, icon: "suv-front" },
-        doors: { name: "Doors", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 1200, icon: "suv-doors" },
-        rims: { name: "Rims and tires", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 1800, icon: "suv-rims" },
-        rearBumper: { name: "Rear bumper", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 1800, icon: "suv-rearBumper" },
-        rearTrunks: { name: "Rear trunk", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 2000, icon: "suv-rearTrunk" },
-        rearLights: { name: "Rear lights", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 2000, icon: "suv-rearLights" },
+        front: { name: "Front cut", text: "<strong>Included:</strong> Engine, front bumper, headlights, Engine, front bumper, headlightsEngine, front bumper, headlightsEngine, front bumper, headlights.", price: 0, icon: "suv-front" },
+        doors: { name: "Doors", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "suv-doors" },
+        rims: { name: "Rims and tires", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "suv-rims" },
+        rearBumper: { name: "Rear bumper", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "suv-rearBumper" },
+        rearTrunks: { name: "Rear trunk", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "suv-rearTrunk" },
+        rearLights: { name: "Rear lights", text: "<strong>Included:</strong> 4 complete doors, 2 complete mirrors, trunk, trunk hinges, battery.", price: 0, icon: "suv-rearLights" },
     },
 };
 
@@ -68,34 +68,52 @@ const standartExtraData = [
 //ADVANCED CALC
 const advancedViews = {
     sedan: {
-        sedan_left: { name: "Left view", icon: "sedan-left" },
-        sedan_top: { name: "Top view", icon: "sedan-top" },
-        sedan_right: { name: "Right side view", icon: "sedan-right" },
-        sedan_rear: { name: "Rear view", icon: "sedan-rear" },
-        sedan_front: { name: "Front view", icon: "sedan-front" },
-        sedan_underneath: { name: "Underneath", icon: "sedan-underneath" },
-        sedan_interior: { name: "Interior", icon: "sedan-interior" },
+        sedan_left: { name: "Left view", icon: "sedan-left", type:'cut' },
+        sedan_top: { name: "Top view", icon: "sedan-top", type:'cut' },
+        sedan_right: { name: "Right side view", icon: "sedan-right", type:'cut' },
+        sedan_rear: { name: "Rear view", icon: "sedan-rear", type:'cut' },
+        sedan_front: { name: "Front view", icon: "sedan-front", type:'cut' },
+        sedan_underneath: { name: "Underneath", icon: "sedan-underneath", type:'underneath' },
+        sedan_interior: { name: "Interior", icon: "sedan-interior", type:'' },
     },
     suv: {
-        suv_left: { name: "Left view", icon: "suv-left" },
-        suv_top: { name: "Top view", icon: "suv-top" },
-        suv_right: { name: "Right side view", icon: "suv-right" },
-        suv_rear: { name: "Rear view", icon: "suv-rear" },
-        suv_front: { name: "Front view", icon: "suv-front" },
-        suv_underneath: { name: "Underneath", icon: "suv-underneath" },
-        suv_interior: { name: "Interior", icon: "suv-interior" },
+        suv_left: { name: "Left view", icon: "suv-left",  type:'cut' },
+        suv_top: { name: "Top view", icon: "suv-top",  type:'cut' },
+        suv_right: { name: "Right side view", icon: "suv-right",  type:'cut' },
+        suv_rear: { name: "Rear view", icon: "suv-rear",  type:'cut' },
+        suv_front: { name: "Front view", icon: "suv-front",  type:'cut' },
+        suv_underneath: { name: "Underneath", icon: "suv-underneath", type:'underneath' },
+        suv_interior: { name: "Interior", icon: "suv-interior", type:''},
     },
 };
 
 const advancedCuts = [
-    { id: "front", name: "Front cut", price: 2500, tooltip: "Lorem ipsum dol amor" },
-    { id: "front-wheels", name: "Front wheels", price: 500, tooltip: "2 items" },
-    { id: "rear-wheels", name: "Rear wheels", price: 500, tooltip: "2 items" },
-    { id: "roof", name: "Roof", price: 1000.5, tooltip: "" },
-    { id: "lights", name: "Ligths", price: 100, tooltip: "" },
-    { id: "bumper", name: "Bumper", price: 100, tooltip: "" },
-    { id: "trunk", name: "Trunk", price: 100, tooltip: "" },
-    { id: "doors", name: "Doors", price: 100, tooltip: "" },
+    { id: "front", name: "Front cut", price: 2500, tooltip: "Lorem ipsum dol amor", type:'cut' },
+    { id: "front-wheels", name: "Front wheels", price: 500, tooltip: "2 items", type:'cut' },
+    { id: "rear-wheels", name: "Rear wheels", price: 500, tooltip: "2 items", type:'cut' },
+    { id: "roof", name: "Roof", price: 1000.5, tooltip: "", type:'cut' },
+    { id: "lights", name: "Ligths", price: 100, tooltip: "", type:'cut' },
+    { id: "bumper", name: "Bumper", price: 100, tooltip: "", type:'cut' },
+    { id: "trunk", name: "Trunk", price: 100, tooltip: "", type:'cut' },
+    { id: "doors", name: "Doors", price: 100, tooltip: "", type:'cut' },
+    {id:'rearDifferential', name:'Rear Differential', price:100, tooltip:'', type:'underneath'},
+    {id:'rearAxleShafts', name:'Rear Axle Shafts', price:100, tooltip:'', type:'underneath'},
+    {id:'rearSuspensionArms', name:'Rear Suspension Arms', price:100, tooltip:'', type:'underneath'},
+    {id:'', name:'Rear Coil Springs / Shocks', price:100, tooltip:'', type:'underneath'},
+    {id:'', name:'Fuel Tank', price:100, tooltip:'', type:'underneath'},
+    {id:'', name:'Rear Muffler', price:100, tooltip:'', type:'underneath'},
+    {id:'Y-PipeConnection', name:'Y-Pipe Connection', price:100, tooltip:'', type:'underneath'},
+    {id:'CatalyticConverter', name:'Catalytic Converter', price:100, tooltip:'', type:'underneath'},
+    {id:'', name:'Center Driveshaft', price:100, tooltip:'', type:'underneath'},
+    {id:'', name:'Heat Shields', price:100, tooltip:'', type:'underneath'},
+    {id:'MainFloorPan', name:'Main Floor Pan', price:100, tooltip:'', type:'underneath'},
+    {id:'', name:'Frame / Chassis Rails', price:100, tooltip:'', type:'underneath'},
+    {id:'', name:'Front Subframe / Crossmember', price:100, tooltip:'', type:'underneath'},
+    {id:'FrontLowerControlArms', name:'Front Lower Control Arms', price:100, tooltip:'', type:'underneath'},
+    {id:'', name:'Front Coil Springs / Struts', price:100, tooltip:'', type:'underneath'},
+    {id:'Linkage', name:'Steering Rack / Linkage', price:100, tooltip:'', type:'underneath'},
+    {id:'FrontCVAxles', name:'Front CV Axles', price:100, tooltip:'', type:'underneath'},
+    {id:'whels', name:'Wheels / Tires', price:100, tooltip:'', type:'underneath'}
 ];
 
 // Update total price
@@ -175,9 +193,6 @@ function handleCarTypeChange(event) {
 
     detailsTable.innerHTML = "";
     if (isStandard) {
-            detailsTable.innerHTML += `
-        <tr><td>Standart cut</td><td>$${standardRadio.value}</td><td></td></tr>
-        `;
         standartCats.innerHTML = "";
         Object.entries(services[carType]).map((entry) => {
             let key = entry[0];
@@ -216,16 +231,13 @@ function handleCarTypeChange(event) {
             extraItems.insertAdjacentHTML("beforeEnd", html);
         });
     } else {
-        detailsTable.innerHTML += `
-            <tr><td>Advanced</td><td></td><td></td></tr>
-        `;
         advancedCats.innerHTML = "";
         Object.entries(advancedViews[carType]).map((entry, index) => {
             let key = entry[0];
             let value = entry[1];
             const html = `
                     <label class="partsCheckbox ${index == 0 ? "--checked" : ""}">
-                        <input type="radio" name="view" value="${key}">
+                        <input type="radio" name="view" value="${key}" data-type="${value.type}">
                         <div class="partsCheckbox__title">${value.name}</div>
                         <div class="partsCheckbox__icon"><img src="assets/img/advanced/${value.icon}.svg" alt="icon"></div>
                     </label>
@@ -238,9 +250,9 @@ function handleCarTypeChange(event) {
         Object.entries(advancedCuts).map((entry) => {
             let item = entry[1];
             let html = `
-                <li>
+                <li style='display:none;'>
                     <label class="extrasCheckbox">
-                        <input type="checkbox" name="cuts" value="${item.price}" data-part="${item.id}">
+                        <input type="checkbox" name="cuts" value="${item.price}" data-part="${item.id}" data-type="${item.type}">
                         <span>${item.name}</span>
                     ${item.tooltip.length > 0 ? 
                         `<div class="tooltip">
@@ -285,18 +297,12 @@ function handleStandardCheckboxChange(event) {
         selectedServicesList.insertAdjacentHTML("beforeend", listItem);
         parent.classList.add("--checked");
         updateTotal(service.price);
-
-        detailsTable.innerHTML += `
-            <tr data-side="${side}"><td>${service.name}</td><td>$${service.price}</td><td>
-            <button class="order-close" data-type="standart-service" data-remove="${side}"></button></td></tr>
-        `;
     } else {
         parent.classList.remove("--checked");
         const listItemToRemove = selectedServicesList.querySelector(`.standard-calculator__service[data-side="${side}"]`);
         if (listItemToRemove) {
             selectedServicesList.removeChild(listItemToRemove);
             updateTotal(-service.price);
-            detailsTable.querySelector(`tr[data-side="${side}"]`).remove();
         }
     }
 
@@ -311,17 +317,25 @@ function handleAdvancedViewsChange(event) {
     const side = event.target.value;
     const isChecked = event.target.checked;
     const parent = event.target.parentElement;
+    const type = event.target.dataset.type;
 
     advancedCats.querySelectorAll(".partsCheckbox").forEach((item) => {
         item.classList.remove("--checked");
     });
     parent.classList.add("--checked");
+    
 
     const view = event.target.value;
     if (view !== currentView) {
         event.target.classList.add("active-view");
         currentView = view;
         loadSVG(view);
+        document.getElementById('selected_views').scrollIntoView({ behavior: "smooth" });
+
+        advancedChexboxs.querySelectorAll('input').forEach( (item)=>{
+            item.closest('li').style.display = item.dataset.type == type ? 'flex' :'none';
+        });
+        
     }
 }
 
@@ -460,11 +474,29 @@ const details = document.querySelector("#orderDetails");
 const detailsIcon = details.querySelector("#orderDetails-icon");
 const detailsName = details.querySelector("#orderDetails-name");
 const detailsTable = details.querySelector("#orderDetails-table");
+const detailsClose = details.querySelector("#orderDetails-close");
 document.querySelector("#details-popup").addEventListener("click", function () {
     // if (carType != "") {
         getOrder();
         details.classList.toggle("--active");
     // }
+});
+
+detailsClose.addEventListener('click', function(){
+    details.classList.remove("--active");
+});
+document.addEventListener('click', function(event){
+    if( event.target.closest('#orderDetails') == null && event.target.id != 'details-popup' ){
+        details.classList.remove("--active");
+    }
+});
+
+document.getElementById('selected_views').addEventListener('click', function(event){
+    const el = event.target.closest('g');
+    if( el != null ){
+        const id = el.id;
+        advancedChexboxs.querySelector(`input[data-part="${id}"`).click();
+    }
 });
 
 detailsTable.addEventListener('click', function(event){
@@ -492,7 +524,11 @@ function getOrder() {
                 <use href="/assets/img/icons.svg#${carType}"></use>
             </svg>
         `;
-    detailsName.innerText = carType;
+
+        if(standardRadio.checked || advancedRadio.checked){
+            detailsName.innerText = carType + ` ${standardRadio.checked ? `Standart $${standardRadio.value}` : `Advanced`}`;
+        }
+    
 }
 
 // });
