@@ -74,7 +74,7 @@ const advancedViews = {
         sedan_rear: { name: "Rear view", icon: "sedan-rear", type:'cut' },
         sedan_front: { name: "Front view", icon: "sedan-front", type:'cut' },
         sedan_underneath: { name: "Underneath", icon: "sedan-underneath", type:'underneath' },
-        sedan_interior: { name: "Interior", icon: "sedan-interior", type:'' },
+        sedan_interior: { name: "Interior", icon: "sedan-interior", type:'interior' },
     },
     suv: {
         suv_left: { name: "Left view", icon: "suv-left",  type:'cut' },
@@ -83,7 +83,7 @@ const advancedViews = {
         suv_rear: { name: "Rear view", icon: "suv-rear",  type:'cut' },
         suv_front: { name: "Front view", icon: "suv-front",  type:'cut' },
         suv_underneath: { name: "Underneath", icon: "suv-underneath", type:'underneath' },
-        suv_interior: { name: "Interior", icon: "suv-interior", type:''},
+        suv_interior: { name: "Interior", icon: "suv-interior", type:'interior'},
     },
 };
 
@@ -100,7 +100,7 @@ const advancedCuts = [
     {id:'rearAxleShafts', name:'Rear Axle Shafts', price:100, tooltip:'', type:'underneath'},
     {id:'rearSuspensionArms', name:'Rear Suspension Arms', price:100, tooltip:'', type:'underneath'},
     {id:'', name:'Rear Coil Springs / Shocks', price:100, tooltip:'', type:'underneath'},
-    {id:'', name:'Fuel Tank', price:100, tooltip:'', type:'underneath'},
+    {id:'fueltank', name:'Fuel Tank', price:100, tooltip:'', type:'underneath'},
     {id:'', name:'Rear Muffler', price:100, tooltip:'', type:'underneath'},
     {id:'Y-PipeConnection', name:'Y-Pipe Connection', price:100, tooltip:'', type:'underneath'},
     {id:'CatalyticConverter', name:'Catalytic Converter', price:100, tooltip:'', type:'underneath'},
@@ -113,7 +113,9 @@ const advancedCuts = [
     {id:'', name:'Front Coil Springs / Struts', price:100, tooltip:'', type:'underneath'},
     {id:'Linkage', name:'Steering Rack / Linkage', price:100, tooltip:'', type:'underneath'},
     {id:'FrontCVAxles', name:'Front CV Axles', price:100, tooltip:'', type:'underneath'},
-    {id:'whels', name:'Wheels / Tires', price:100, tooltip:'', type:'underneath'}
+    {id:'whels', name:'Wheels / Tires', price:100, tooltip:'', type:'underneath'},
+    {id:'rearMat', name:'Rear mats', price:100, tooltip:'', type:'interior'},
+    {id:'driversMat', name:'Driver mat', price:100, tooltip:'', type:'interior'},
 ];
 
 // Update total price
@@ -245,6 +247,7 @@ function handleCarTypeChange(event) {
             advancedCats.insertAdjacentHTML("beforeEnd", html);
         });
         loadSVG(currentView);
+       
 
         advancedChexboxs.innerHTML = '';
         Object.entries(advancedCuts).map((entry) => {
@@ -266,6 +269,9 @@ function handleCarTypeChange(event) {
                     </li>
                 `;
             advancedChexboxs.insertAdjacentHTML("beforeend", html);
+        });
+         advancedChexboxs.querySelectorAll('input').forEach( (item)=>{
+            item.closest('li').style.display = item.dataset.type == 'cut' ? 'flex' :'none';
         });
     }
     allParts.scrollIntoView({ behavior: "smooth" });
