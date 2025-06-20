@@ -1114,6 +1114,11 @@ body {
         }
     }
 
+    .hover-group:hover *{
+        fill: lighten(#3265B1, 30) !important;
+        cursor: pointer;
+    }
+
     // svg{
     //     path:hover{
     //         fill: lighten(#3265B1, 10);

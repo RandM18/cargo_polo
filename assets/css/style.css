@@ -2592,6 +2592,10 @@ body {
 .advanced-calculator__services .highlighted * {
   fill: #3265B1 !important;
 }
+.advanced-calculator__services .hover-group:hover * {
+  fill: #9ab7e2 !important;
+  cursor: pointer;
+}
 
 #selected_views {
   display: flex;

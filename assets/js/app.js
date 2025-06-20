@@ -31,7 +31,6 @@ let carType = "";
 let currentView = "left";
 let svgDocument;
 
-
 // DATA
 
 // STANDART CALC
@@ -68,54 +67,54 @@ const standartExtraData = [
 //ADVANCED CALC
 const advancedViews = {
     sedan: {
-        sedan_left: { name: "Left view", icon: "sedan-left", type:'cut' },
-        sedan_top: { name: "Top view", icon: "sedan-top", type:'cut' },
-        sedan_right: { name: "Right side view", icon: "sedan-right", type:'cut' },
-        sedan_rear: { name: "Rear view", icon: "sedan-rear", type:'cut' },
-        sedan_front: { name: "Front view", icon: "sedan-front", type:'cut' },
-        sedan_underneath: { name: "Underneath", icon: "sedan-underneath", type:'underneath' },
-        sedan_interior: { name: "Interior", icon: "sedan-interior", type:'interior' },
+        sedan_left: { name: "Left view", icon: "sedan-left", type: "cut" },
+        sedan_top: { name: "Top view", icon: "sedan-top", type: "cut" },
+        sedan_right: { name: "Right side view", icon: "sedan-right", type: "cut" },
+        sedan_rear: { name: "Rear view", icon: "sedan-rear", type: "cut" },
+        sedan_front: { name: "Front view", icon: "sedan-front", type: "cut" },
+        sedan_underneath: { name: "Underneath", icon: "sedan-underneath", type: "underneath" },
+        sedan_interior: { name: "Interior", icon: "sedan-interior", type: "interior" },
     },
     suv: {
-        suv_left: { name: "Left view", icon: "suv-left",  type:'cut' },
-        suv_top: { name: "Top view", icon: "suv-top",  type:'cut' },
-        suv_right: { name: "Right side view", icon: "suv-right",  type:'cut' },
-        suv_rear: { name: "Rear view", icon: "suv-rear",  type:'cut' },
-        suv_front: { name: "Front view", icon: "suv-front",  type:'cut' },
-        suv_underneath: { name: "Underneath", icon: "suv-underneath", type:'underneath' },
-        suv_interior: { name: "Interior", icon: "suv-interior", type:'interior'},
+        suv_left: { name: "Left view", icon: "suv-left", type: "cut" },
+        suv_top: { name: "Top view", icon: "suv-top", type: "cut" },
+        suv_right: { name: "Right side view", icon: "suv-right", type: "cut" },
+        suv_rear: { name: "Rear view", icon: "suv-rear", type: "cut" },
+        suv_front: { name: "Front view", icon: "suv-front", type: "cut" },
+        suv_underneath: { name: "Underneath", icon: "suv-underneath", type: "underneath" },
+        suv_interior: { name: "Interior", icon: "suv-interior", type: "interior" },
     },
 };
 
 const advancedCuts = [
-    { id: "front", name: "Front cut", price: 2500, tooltip: "Lorem ipsum dol amor", type:'cut' },
-    { id: "front-wheels", name: "Front wheels", price: 500, tooltip: "2 items", type:'cut' },
-    { id: "rear-wheels", name: "Rear wheels", price: 500, tooltip: "2 items", type:'cut' },
-    { id: "roof", name: "Roof", price: 1000.5, tooltip: "", type:'cut' },
-    { id: "lights", name: "Ligths", price: 100, tooltip: "", type:'cut' },
-    { id: "bumper", name: "Bumper", price: 100, tooltip: "", type:'cut' },
-    { id: "trunk", name: "Trunk", price: 100, tooltip: "", type:'cut' },
-    { id: "doors", name: "Doors", price: 100, tooltip: "", type:'cut' },
-    {id:'rearDifferential', name:'Rear Differential', price:100, tooltip:'', type:'underneath'},
-    {id:'rearAxleShafts', name:'Rear Axle Shafts', price:100, tooltip:'', type:'underneath'},
-    {id:'rearSuspensionArms', name:'Rear Suspension Arms', price:100, tooltip:'', type:'underneath'},
-    {id:'', name:'Rear Coil Springs / Shocks', price:100, tooltip:'', type:'underneath'},
-    {id:'fueltank', name:'Fuel Tank', price:100, tooltip:'', type:'underneath'},
-    {id:'', name:'Rear Muffler', price:100, tooltip:'', type:'underneath'},
-    {id:'Y-PipeConnection', name:'Y-Pipe Connection', price:100, tooltip:'', type:'underneath'},
-    {id:'CatalyticConverter', name:'Catalytic Converter', price:100, tooltip:'', type:'underneath'},
-    {id:'', name:'Center Driveshaft', price:100, tooltip:'', type:'underneath'},
-    {id:'', name:'Heat Shields', price:100, tooltip:'', type:'underneath'},
-    {id:'MainFloorPan', name:'Main Floor Pan', price:100, tooltip:'', type:'underneath'},
-    {id:'', name:'Frame / Chassis Rails', price:100, tooltip:'', type:'underneath'},
-    {id:'', name:'Front Subframe / Crossmember', price:100, tooltip:'', type:'underneath'},
-    {id:'FrontLowerControlArms', name:'Front Lower Control Arms', price:100, tooltip:'', type:'underneath'},
-    {id:'', name:'Front Coil Springs / Struts', price:100, tooltip:'', type:'underneath'},
-    {id:'Linkage', name:'Steering Rack / Linkage', price:100, tooltip:'', type:'underneath'},
-    {id:'FrontCVAxles', name:'Front CV Axles', price:100, tooltip:'', type:'underneath'},
-    {id:'whels', name:'Wheels / Tires', price:100, tooltip:'', type:'underneath'},
-    {id:'rearMat', name:'Rear mats', price:100, tooltip:'', type:'interior'},
-    {id:'driversMat', name:'Driver mat', price:100, tooltip:'', type:'interior'},
+    { id: "front", name: "Front cut", price: 2500, tooltip: "Lorem ipsum dol amor", type: "cut" },
+    { id: "front-wheels", name: "Front wheels", price: 500, tooltip: "2 items", type: "cut" },
+    { id: "rear-wheels", name: "Rear wheels", price: 500, tooltip: "2 items", type: "cut" },
+    { id: "roof", name: "Roof", price: 1000.5, tooltip: "", type: "cut" },
+    { id: "lights", name: "Ligths", price: 100, tooltip: "", type: "cut" },
+    { id: "bumper", name: "Bumper", price: 100, tooltip: "", type: "cut" },
+    { id: "trunk", name: "Trunk", price: 100, tooltip: "", type: "cut" },
+    { id: "doors", name: "Doors", price: 100, tooltip: "", type: "cut" },
+    { id: "rearDifferential", name: "Rear Differential", price: 100, tooltip: "", type: "underneath" },
+    { id: "rearAxleShafts", name: "Rear Axle Shafts", price: 100, tooltip: "", type: "underneath" },
+    { id: "rearSuspensionArms", name: "Rear Suspension Arms", price: 100, tooltip: "", type: "underneath" },
+    { id: "", name: "Rear Coil Springs / Shocks", price: 100, tooltip: "", type: "underneath" },
+    { id: "fueltank", name: "Fuel Tank", price: 100, tooltip: "", type: "underneath" },
+    { id: "", name: "Rear Muffler", price: 100, tooltip: "", type: "underneath" },
+    { id: "Y-PipeConnection", name: "Y-Pipe Connection", price: 100, tooltip: "", type: "underneath" },
+    { id: "CatalyticConverter", name: "Catalytic Converter", price: 100, tooltip: "", type: "underneath" },
+    { id: "", name: "Center Driveshaft", price: 100, tooltip: "", type: "underneath" },
+    { id: "", name: "Heat Shields", price: 100, tooltip: "", type: "underneath" },
+    { id: "MainFloorPan", name: "Main Floor Pan", price: 100, tooltip: "", type: "underneath" },
+    { id: "", name: "Frame / Chassis Rails", price: 100, tooltip: "", type: "underneath" },
+    { id: "", name: "Front Subframe / Crossmember", price: 100, tooltip: "", type: "underneath" },
+    { id: "FrontLowerControlArms", name: "Front Lower Control Arms", price: 100, tooltip: "", type: "underneath" },
+    { id: "", name: "Front Coil Springs / Struts", price: 100, tooltip: "", type: "underneath" },
+    { id: "Linkage", name: "Steering Rack / Linkage", price: 100, tooltip: "", type: "underneath" },
+    { id: "FrontCVAxles", name: "Front CV Axles", price: 100, tooltip: "", type: "underneath" },
+    { id: "whels", name: "Wheels / Tires", price: 100, tooltip: "", type: "underneath" },
+    { id: "rearMat", name: "Rear mats", price: 100, tooltip: "", type: "interior" },
+    { id: "driversMat", name: "Driver mat", price: 100, tooltip: "", type: "interior" },
 ];
 
 // Update total price
@@ -213,18 +212,19 @@ function handleCarTypeChange(event) {
         });
 
         extraItems.innerHTML = "";
-        standartExtraData.forEach((item, index)=>{
+        standartExtraData.forEach((item, index) => {
             const html = `
                 <li>
                     <label class="extrasCheckbox">
                         <input type="checkbox" name="extras[]" value="${item.price}" data-id="e-${index}">
                         <span>${item.name}</span>
                         ${
-                            item.tooltip.length > 0 ? `<div class="tooltip">
+                            item.tooltip.length > 0
+                                ? `<div class="tooltip">
                                 <div class="tooltip__icon"></div>
                                 <div class="tooltip__text">${item.tooltip}</div>
                             </div>`
-                            :``
+                                : ``
                         }
                     </label>
                     <div class="extrasCheckbox__price">$${item.price}</div>
@@ -247,9 +247,8 @@ function handleCarTypeChange(event) {
             advancedCats.insertAdjacentHTML("beforeEnd", html);
         });
         loadSVG(currentView);
-       
 
-        advancedChexboxs.innerHTML = '';
+        advancedChexboxs.innerHTML = "";
         Object.entries(advancedCuts).map((entry) => {
             let item = entry[1];
             let html = `
@@ -257,12 +256,13 @@ function handleCarTypeChange(event) {
                     <label class="extrasCheckbox">
                         <input type="checkbox" name="cuts" value="${item.price}" data-part="${item.id}" data-type="${item.type}">
                         <span>${item.name}</span>
-                    ${item.tooltip.length > 0 ? 
-                        `<div class="tooltip">
+                    ${
+                        item.tooltip.length > 0
+                            ? `<div class="tooltip">
                             <div class="tooltip__icon"></div>
                             <div class="tooltip__text">${item.tooltip}</div>
                         </div>`
-                        :``
+                            : ``
                     }
                     </label>
                         <div class="extrasCheckbox__price">$${item.price}</div>
@@ -270,8 +270,8 @@ function handleCarTypeChange(event) {
                 `;
             advancedChexboxs.insertAdjacentHTML("beforeend", html);
         });
-         advancedChexboxs.querySelectorAll('input').forEach( (item)=>{
-            item.closest('li').style.display = item.dataset.type == 'cut' ? 'flex' :'none';
+        advancedChexboxs.querySelectorAll("input").forEach((item) => {
+            item.closest("li").style.display = item.dataset.type == "cut" ? "flex" : "none";
         });
     }
     allParts.scrollIntoView({ behavior: "smooth" });
@@ -329,19 +329,17 @@ function handleAdvancedViewsChange(event) {
         item.classList.remove("--checked");
     });
     parent.classList.add("--checked");
-    
 
     const view = event.target.value;
     if (view !== currentView) {
         event.target.classList.add("active-view");
         currentView = view;
         loadSVG(view);
-        document.getElementById('selected_views').scrollIntoView({ behavior: "smooth" });
+        document.getElementById("selected_views").scrollIntoView({ behavior: "smooth" });
 
-        advancedChexboxs.querySelectorAll('input').forEach( (item)=>{
-            item.closest('li').style.display = item.dataset.type == type ? 'flex' :'none';
+        advancedChexboxs.querySelectorAll("input").forEach((item) => {
+            item.closest("li").style.display = item.dataset.type == type ? "flex" : "none";
         });
-        
     }
 }
 
@@ -357,7 +355,6 @@ function handleExtras(event) {
             <tr data-side="e-${id}"><td>${name}</td><td>$${price}</td><td>
             <button class="order-close" data-type="standart-extras" data-remove="${id}"></button></td></tr>
         `;
-        
     } else {
         updateTotal(-1 * parseFloat(price));
         detailsTable.querySelector(`tr[data-side="e-${id}"]`).remove();
@@ -483,43 +480,41 @@ const detailsTable = details.querySelector("#orderDetails-table");
 const detailsClose = details.querySelector("#orderDetails-close");
 document.querySelector("#details-popup").addEventListener("click", function () {
     // if (carType != "") {
-        getOrder();
-        details.classList.toggle("--active");
+    getOrder();
+    details.classList.toggle("--active");
     // }
 });
 
-detailsClose.addEventListener('click', function(){
+detailsClose.addEventListener("click", function () {
     details.classList.remove("--active");
 });
-document.addEventListener('click', function(event){
-    if( event.target.closest('#orderDetails') == null && event.target.id != 'details-popup' ){
-        details.classList.remove("--active");
-    }
-});
+// document.addEventListener("click", function (event) {
+//     console.log(event.target.closest("#orderDetails"));
+//     if (event.target.closest("#orderDetails") == null && event.target.id != "details-popup") {
+//         details.classList.remove("--active");
+//     }
+// });
 
-document.getElementById('selected_views').addEventListener('click', function(event){
-    const el = event.target.closest('g');
-    if( el != null ){
+document.getElementById("selected_views").addEventListener("click", function (event) {
+    const el = event.target.closest("g");
+    if (el != null) {
         const id = el.id;
         advancedChexboxs.querySelector(`input[data-part="${id}"`).click();
     }
 });
 
-detailsTable.addEventListener('click', function(event){
-    if(event.target && event.target.matches('button.order-close')){
+detailsTable.addEventListener("click", function (event) {
+    if (event.target && event.target.matches("button.order-close")) {
         const type = event.target.dataset.type;
         const id = event.target.dataset.remove;
 
-        if(type == 'standart-service'){
+        if (type == "standart-service") {
             standartCats.querySelector(`input[value="${id}"]`).click();
-        } else if(type == 'standart-extras'){
+        } else if (type == "standart-extras") {
             extraItems.querySelector(`input[data-id="${id}"`).click();
-        } else if(type == 'advanced-service'){
+        } else if (type == "advanced-service") {
             advancedChexboxs.querySelector(`input[data-part="${id}"]`).click();
         }
-
-        
-
         getOrder();
     }
 });
@@ -531,10 +526,9 @@ function getOrder() {
             </svg>
         `;
 
-        if(standardRadio.checked || advancedRadio.checked){
-            detailsName.innerText = carType + ` ${standardRadio.checked ? `Standart $${standardRadio.value}` : `Advanced`}`;
-        }
-    
+    if (standardRadio.checked || advancedRadio.checked) {
+        detailsName.innerText = carType + ` ${standardRadio.checked ? `Standart $${standardRadio.value}` : `Advanced`}`;
+    }
 }
 
 // });
