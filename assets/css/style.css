@@ -2611,6 +2611,7 @@ body {
 }
 #car-image-container svg {
   max-height: 300px;
+  max-width: 100%;
 }
 
 #car-view-name {
@@ -2748,4 +2749,18 @@ body {
 }
 .order-close:after {
   transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.notes__title {
+  margin: 0 0 32px 0;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.notesbox {
+  width: 100%;
+  min-height: 130px;
+  padding: 12px;
+  border: 1px solid #3265b1;
+  resize: vertical;
 }

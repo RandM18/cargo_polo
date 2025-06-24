@@ -205,7 +205,7 @@ body {
         transition: .3s color;
         line-height: 1;
 
-        img{
+        img {
             box-shadow: 0px 0px 8px 0px #00000026;
 
         }
@@ -1114,7 +1114,7 @@ body {
         }
     }
 
-    .hover-group:hover *{
+    .hover-group:hover * {
         fill: lighten(#3265B1, 30) !important;
         cursor: pointer;
     }
@@ -1139,9 +1139,10 @@ body {
     max-height: 300px;
 
     svg {
-        
+
         max-height: 300px;
-        
+        max-width: 100%;
+
     }
 }
 
@@ -1194,7 +1195,7 @@ body {
         }
 
         &::-webkit-scrollbar-thumb {
-            background: #3265b1; 
+            background: #3265b1;
 
         }
 
@@ -1210,7 +1211,7 @@ body {
 
     &__wrapper {}
 
-    &__close{
+    &__close {
         position: absolute;
         right: 10px;
         top: 10px;
@@ -1219,10 +1220,10 @@ body {
         border-radius: 50%;
         background: none;
         outline: none;
-        border:none;
+        border: none;
 
-        &:before{
-            content:'';
+        &:before {
+            content: '';
             position: absolute;
             left: 50%;
             top: 50%;
@@ -1231,8 +1232,9 @@ body {
             background-color: #3265B1;
             transform: translate(-50%, -50%) rotate(-45deg);
         }
-        &:after{
-            content:'';
+
+        &:after {
+            content: '';
             position: absolute;
             left: 50%;
             top: 50%;
@@ -1321,4 +1323,23 @@ body {
     &:after {
         transform: translate(-50%, -50%) rotate(-45deg);
     }
+}
+
+.notes {
+
+    // .notes__title
+
+    &__title {
+        margin: 0 0 32px 0;
+        font-size: 28px;
+        font-weight: 500;
+    }
+}
+
+.notesbox {
+    width: 100%;
+    min-height: 130px;
+    padding: 12px;
+    border: 1px solid #3265b1;
+    resize: vertical;
 }
