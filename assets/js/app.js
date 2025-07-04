@@ -96,26 +96,41 @@ const advancedCuts = [
   { id: "bumper", name: "Bumper", price: 100, tooltip: "", type: "cut" },
   { id: "trunk", name: "Trunk", price: 100, tooltip: "", type: "cut" },
   { id: "doors", name: "Doors", price: 100, tooltip: "", type: "cut" },
-  { id: "rearDifferential", name: "Rear Differential", price: 100, tooltip: "", type: "underneath" },
-  { id: "rearAxleShafts", name: "Rear Axle Shafts", price: 100, tooltip: "", type: "underneath" },
-  { id: "rearSuspensionArms", name: "Rear Suspension Arms", price: 100, tooltip: "", type: "underneath" },
-  { id: "", name: "Rear Coil Springs / Shocks", price: 100, tooltip: "", type: "underneath" },
+  { id: "rear-mat", name: "Rear mat", price: 100, tooltip: "", type: "interior" },
+  { id: "drive-mat", name: "Drive mat", price: 100, tooltip: "", type: "interior" },
+  { id: "touchscreen", name: "Touchscreen", price: 100, tooltip: "", type: "interior" },
+  { id: "pas-meat", name: "Passanger meat", price: 100, tooltip: "", type: "interior" },
+  { id: "seatbelt", name: "Seat belt", price: 100, tooltip: "", type: "interior" },
+  { id: "glove-box", name: "Glove box", price: 100, tooltip: "", type: "interior" },
+  { id: "door-panel", name: "Door panel", price: 100, tooltip: "", type: "interior" },
+  { id: "rear-floor", name: "Rear floor", price: 100, tooltip: "", type: "interior" },
+  { id: "rear-right-seat", name: "Rear right seat", price: 100, tooltip: "", type: "interior" },
+  { id: "rear-middle-seat", name: "Rear middle seat", price: 100, tooltip: "", type: "interior" },
+  { id: "rear-left-seat", name: "Rear left seat", price: 100, tooltip: "", type: "interior" },
+  { id: "front-right-seat", name: "Front right seat", price: 100, tooltip: "", type: "interior" },
+  { id: "front-left-seat", name: "Front left seat", price: 100, tooltip: "", type: "interior" },
+  { id: "console", name: "Console", price: 100, tooltip: "", type: "interior" },
+  { id: "dashboard", name: "Dashboard", price: 100, tooltip: "", type: "interior" },
+  { id: "rudder", name: "Rudder", price: 100, tooltip: "", type: "interior" },
+  { id: "rear-dif", name: "Rear Differential", price: 100, tooltip: "", type: "underneath" },
+  { id: "rear-axis", name: "Rear Axle Shafts", price: 100, tooltip: "", type: "underneath" },
+  { id: "rear-arms", name: "Rear Suspension Arms", price: 100, tooltip: "", type: "underneath" },
   { id: "fueltank", name: "Fuel Tank", price: 100, tooltip: "", type: "underneath" },
-  { id: "", name: "Rear Muffler", price: 100, tooltip: "", type: "underneath" },
-  { id: "Y-PipeConnection", name: "Y-Pipe Connection", price: 100, tooltip: "", type: "underneath" },
-  { id: "CatalyticConverter", name: "Catalytic Converter", price: 100, tooltip: "", type: "underneath" },
-  { id: "", name: "Center Driveshaft", price: 100, tooltip: "", type: "underneath" },
-  { id: "", name: "Heat Shields", price: 100, tooltip: "", type: "underneath" },
-  { id: "MainFloorPan", name: "Main Floor Pan", price: 100, tooltip: "", type: "underneath" },
-  { id: "", name: "Frame / Chassis Rails", price: 100, tooltip: "", type: "underneath" },
-  { id: "", name: "Front Subframe / Crossmember", price: 100, tooltip: "", type: "underneath" },
-  { id: "FrontLowerControlArms", name: "Front Lower Control Arms", price: 100, tooltip: "", type: "underneath" },
-  { id: "", name: "Front Coil Springs / Struts", price: 100, tooltip: "", type: "underneath" },
-  { id: "Linkage", name: "Steering Rack / Linkage", price: 100, tooltip: "", type: "underneath" },
-  { id: "FrontCVAxles", name: "Front CV Axles", price: 100, tooltip: "", type: "underneath" },
-  { id: "whels", name: "Wheels / Tires", price: 100, tooltip: "", type: "underneath" },
-  { id: "rearMat", name: "Rear mats", price: 100, tooltip: "", type: "interior" },
-  { id: "driversMat", name: "Driver mat", price: 100, tooltip: "", type: "interior" },
+  { id: "y-pipe", name: "Y-Pipe Connection", price: 100, tooltip: "", type: "underneath" },
+  { id: "catalytic", name: "Catalytic Converter", price: 100, tooltip: "", type: "underneath" },
+  { id: "main-floor-panel", name: "Main Floor Pan", price: 100, tooltip: "", type: "underneath" },
+  { id: "frame", name: "Frame / Chassis Rails", price: 100, tooltip: "", type: "underneath" },
+  { id: "front-arms", name: "Front Lower Control Arms", price: 100, tooltip: "", type: "underneath" },
+  { id: "linkage", name: "Steering Rack / Linkage", price: 100, tooltip: "", type: "underneath" },
+  { id: "front-cv-axies", name: "Front CV Axles", price: 100, tooltip: "", type: "underneath" },
+  { id: "front-wheels", name: "Wheels / front", price: 100, tooltip: "", type: "underneath" },
+  { id: "rear-wheels", name: "Wheels / rear", price: 100, tooltip: "", type: "underneath" },
+  // { id: "1", name: "Rear Coil Springs / Shocks", price: 100, tooltip: "", type: "underneath" },
+  // { id: "3", name: "Center Driveshaft", price: 100, tooltip: "", type: "underneath" },
+  // { id: "4", name: "Heat Shields", price: 100, tooltip: "", type: "underneath" },
+  // { id: "7", name: "Front Coil Springs / Struts", price: 100, tooltip: "", type: "underneath" },
+  // { id: "6", name: "Front Subframe / Crossmember", price: 100, tooltip: "", type: "underneath" },
+  // { id: "2", name: "Rear Muffler", price: 100, tooltip: "", type: "underneath" },
 ];
 
 // Update total price
@@ -205,7 +220,7 @@ function handleCarTypeChange(event) {
       const html = `
                     <label class="partsCheckbox">
                         <input type="checkbox" name="side[]" value="${key}">
-                        <div class="partsCheckbox__title">${value.name}</div>
+                        <div class="partsCheckbox__name">${value.name}</div>
                         <div class="partsCheckbox__icon"><img src="assets/img/standart/${value.icon}.svg" alt="icon"></div>
                         <div class="partsCheckbox__status">Selected</div>
                     </label>
@@ -243,7 +258,7 @@ function handleCarTypeChange(event) {
       const html = `
                     <label class="partsCheckbox ${index == 0 ? "--checked" : ""}">
                         <input type="radio" name="view" value="${key}" data-type="${value.type}">
-                        <div class="partsCheckbox__title">${value.name}</div>
+                        <div class="partsCheckbox__name">${value.name}</div>
                         <div class="partsCheckbox__icon"><img src="assets/img/advanced/${value.icon}.svg" alt="icon"></div>
                     </label>
                 `;
@@ -294,7 +309,7 @@ function handleStandardCheckboxChange(event) {
     const listItem = `
                 <div class="standard-calculator__service" data-side="${side}">
                     <div class="partsCheckbox">
-                        <div class="partsCheckbox__title">${service.name}</div>
+                        <div class="partsCheckbox__name">${service.name}</div>
                         <div class="partsCheckbox__icon"><img src="assets/img/standart/${service.icon}-more.svg" alt="icon"></div>
                     </div>
                     <div class="standard-calculator__service_body">
